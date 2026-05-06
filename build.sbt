@@ -7,7 +7,7 @@ import uk.gov.hmrc.versioning.SbtGitVersioning.autoImport.majorVersion
 
 val appName = "income-tax-returns-frontend"
 ThisBuild / majorVersion := 0
-val currentScalaVersion = "2.13.16"
+val currentScalaVersion = "2.13.18"
 
 scalacOptions ++= Seq(
   "-feature",
