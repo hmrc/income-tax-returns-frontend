@@ -12,21 +12,25 @@ import play.api.inject.guice.GuiceApplicationBuilder
 class HelloWorldControllerSpec
   extends AnyWordSpec
      with Matchers
-     with GuiceOneAppPerSuite:
+     with GuiceOneAppPerSuite {
 
   override def fakeApplication(): Application =
     new GuiceApplicationBuilder()
       .build()
 
   private val fakeRequest = FakeRequest("GET", "/")
-  private val controller  = app.injector.instanceOf[HelloWorldController]
+  private val controller = app.injector.instanceOf[HelloWorldController]
 
-  "GET /" should:
-    "return 200" in:
+  "GET /" should {
+    "return 200" in {
       val result = controller.helloWorld(fakeRequest)
       status(result) shouldBe Status.OK
+    }
 
-    "return HTML" in:
+    "return HTML" in {
       val result = controller.helloWorld(fakeRequest)
       contentType(result) shouldBe Some("text/html")
-      charset(result)     shouldBe Some("utf-8")
+      charset(result) shouldBe Some("utf-8")
+    }
+  }
+}

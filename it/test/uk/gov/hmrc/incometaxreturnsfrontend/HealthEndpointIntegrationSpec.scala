@@ -10,27 +10,32 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import uk.gov.hmrc.http.client.HttpClientV2
 import uk.gov.hmrc.http.{StringContextOps, HttpReads, HeaderCarrier}
 import uk.gov.hmrc.http.HttpReads.Implicits.readRaw
+import scala.concurrent.ExecutionContext.Implicits.global
+import play.api.libs.ws.WSClient
+import play.api.test.Helpers._
 
 class HealthEndpointIntegrationSpec
   extends AnyWordSpec
      with Matchers
      with ScalaFutures
      with IntegrationPatience
-     with GuiceOneServerPerSuite:
+     with GuiceOneServerPerSuite{
 
-  private val httpClient = app.injector.instanceOf[HttpClientV2]
-  private val baseUrl  = s"http://localhost:$port"
+private val baseUrl = s"http://localhost:$port"
+implicit val ws: WSClient = app.injector.instanceOf[WSClient]
 
   override def fakeApplication(): Application =
     GuiceApplicationBuilder()
       .build()
 
-  "service health endpoint" should:
-    "respond with 200 status" in:
-      val response =
-        httpClient
-          .get(url"$baseUrl/ping/ping")(HeaderCarrier())
-          .execute()
-          .futureValue
+  "service health endpoint" should {
+    "respond with 200 status" in {
+      val response = await(
+        ws.url(s"$baseUrl/ping/ping")
+          .get()
+      )
 
       response.status shouldBe 200
+    }
+  }
+}
