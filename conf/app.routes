@@ -3,3 +3,12 @@
 ->         /hmrc-frontend           hmrcfrontend.Routes
 GET        /                        uk.gov.hmrc.incometaxreturnsfrontend.controllers.HelloWorldController.helloWorld
 GET        /assets/*file            controllers.Assets.versioned(path = "/public", file: Asset)
+
+#Home Controller
+GET         /                                                             hub.controllers.HomeController.show(origin: Option[String] ?= None)
+GET         /income-tax                                                   hub.controllers.HomeController.show(origin: Option[String] ?= None)
+GET         /agents/client-income-tax                                     hub.controllers.HomeController.showAgent()
+GET         /agents                                                       hub.controllers.HomeController.showAgent()
+
+->          /                                                             common.Routes
+->          /                                                             returns.Routes
