@@ -16,7 +16,7 @@
 
 package common.admin
 
-import common.models.admin.{FeatureSwitchName, ITSASubmissionIntegration, InvalidFS, ChargeHistory}
+import common.models.admin.{FeatureSwitchName, ITSASubmissionIntegration, PenaltiesAndAppeals, NotRequiredFS}
 import org.scalatestplus.play.PlaySpec
 import play.api.libs.json.{JsString, Json}
 
@@ -29,8 +29,8 @@ class FeatureSwitchNameSpec extends PlaySpec{
     }
 
     "deserialize another valid FeatureSwitchName" in {
-      val json = JsString(ChargeHistory.name)
-      json.as[FeatureSwitchName] mustBe ChargeHistory
+      val json = JsString(PenaltiesAndAppeals.name)
+      json.as[FeatureSwitchName] mustBe PenaltiesAndAppeals
     }
 
     "deserialize all known FeatureSwitchNames successfully (round-trip test)" in {
@@ -40,9 +40,9 @@ class FeatureSwitchNameSpec extends PlaySpec{
       }
     }
 
-    "return InvalidFS for an unknown feature switch" in {
+    "return NotRequiredFS for a feature switch not used in this service" in {
       val json = JsString("NotARealFeatureSwitch")
-      json.as[FeatureSwitchName] mustBe InvalidFS
+      json.as[FeatureSwitchName] mustBe NotRequiredFS
     }
   }
 
