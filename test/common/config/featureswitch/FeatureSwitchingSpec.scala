@@ -48,6 +48,8 @@ class FeatureSwitchingSpec extends TestSupport with MockitoSugar {
     `CY+1YouMustWaitToSignUpPageEnabled`,
     MortgageEvidence,
     NoIncomeSourcesRedirect,
+    ObligationsFrontend,
+    FinancialsFrontend
   )
 
   "FeatureSwitchName" when {
