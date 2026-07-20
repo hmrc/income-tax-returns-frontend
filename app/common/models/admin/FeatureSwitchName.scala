@@ -39,51 +39,23 @@ object FeatureSwitchName {
   implicit val reads: Reads[FeatureSwitchName] = {
     case JsString(ITSASubmissionIntegration.name) =>
       JsSuccess(ITSASubmissionIntegration)
-    case JsString(ChargeHistory.name) =>
-      JsSuccess(ChargeHistory)
-    case JsString(CreditsRefundsRepay.name) =>
-      JsSuccess(CreditsRefundsRepay)
-    case JsString(PaymentHistoryRefunds.name) =>
-      JsSuccess(PaymentHistoryRefunds)
-    case JsString(OptOutFs.name) =>
-      JsSuccess(OptOutFs)
-    case JsString(SignUpFs.name) =>
-      JsSuccess(SignUpFs)
-    case JsString(DisplayBusinessStartDate.name) =>
-      JsSuccess(DisplayBusinessStartDate)
     case JsString(PenaltiesAndAppeals.name) =>
       JsSuccess(PenaltiesAndAppeals)
-    case JsString(PenaltiesBackendEnabled.name) =>
-      JsSuccess(PenaltiesBackendEnabled)
-    case JsString(SelfServeTimeToPayR17.name) =>
-      JsSuccess(SelfServeTimeToPayR17)
-    case JsString(TriggeredMigration.name) =>
-      JsSuccess(TriggeredMigration)
-    case JsString(SubmitClaimToAdjustToNrs.name) =>
-      JsSuccess(SubmitClaimToAdjustToNrs)
     case JsString(PostFinalisationAmendmentsR18.name) =>
       JsSuccess(PostFinalisationAmendmentsR18)
     case JsString(`CY+1YouMustWaitToSignUpPageEnabled`.name) =>
       JsSuccess(`CY+1YouMustWaitToSignUpPageEnabled`)
-    case JsString(NewHomePage.name) =>
-      JsSuccess(NewHomePage)
-    case JsString(ObligationsFrontend.name) =>
-      JsSuccess(ObligationsFrontend)
-    case JsString(OverseasBusinessAddress.name) =>
-      JsSuccess(OverseasBusinessAddress)
-    case JsString(RecentActivity.name) =>
-      JsSuccess(RecentActivity)
     case JsString(MortgageEvidence.name) =>
       JsSuccess(MortgageEvidence)
-    case JsString(IdempotencyKeyForCreateIncomeSource.name) =>
-      JsSuccess(IdempotencyKeyForCreateIncomeSource)
     case JsString(NoIncomeSourcesRedirect.name) =>
       JsSuccess(NoIncomeSourcesRedirect)
-    case JsString(BusinessDetailsFrontend.name) =>
-      JsSuccess(BusinessDetailsFrontend)
+    case JsString(ObligationsFrontend.name) =>
+      JsSuccess(ObligationsFrontend)
+    case JsString(FinancialsFrontend.name) =>
+      JsSuccess(FinancialsFrontend)
     case invalidName =>
-      Logger("application").error(s"Invalid feature switch Json found: $invalidName")
-      JsSuccess(InvalidFS)
+      Logger("application").debug("Feature switch not required in this service")
+      JsSuccess(NotRequiredFS)
   }
 
   implicit val formats: Format[FeatureSwitchName] =
@@ -106,27 +78,13 @@ object FeatureSwitchName {
   val allFeatureSwitches: immutable.Set[FeatureSwitchName] =
     Set(
       ITSASubmissionIntegration,
-      ChargeHistory,
-      CreditsRefundsRepay,
-      PaymentHistoryRefunds,
-      OptOutFs,
-      SignUpFs,
-      DisplayBusinessStartDate,
       PenaltiesAndAppeals,
-      PenaltiesBackendEnabled,
-      SubmitClaimToAdjustToNrs,
-      SelfServeTimeToPayR17,
-      TriggeredMigration,
       PostFinalisationAmendmentsR18,
       `CY+1YouMustWaitToSignUpPageEnabled`,
-      NewHomePage,
-      OverseasBusinessAddress,
-      RecentActivity,
       MortgageEvidence,
-      IdempotencyKeyForCreateIncomeSource,
       NoIncomeSourcesRedirect,
-      BusinessDetailsFrontend,
-      ObligationsFrontend
+      ObligationsFrontend,
+      FinancialsFrontend
     )
 
   def get(str: String): Option[FeatureSwitchName] = allFeatureSwitches find (_.name == str)
@@ -138,72 +96,9 @@ case object ITSASubmissionIntegration extends FeatureSwitchName {
   override def toString: String = "ITSA Submission Integration"
 }
 
-case object ChargeHistory extends FeatureSwitchName {
-  override val name: String = "charge-history"
-
-  override def toString: String = "Charge History"
-}
-
-case object CreditsRefundsRepay extends FeatureSwitchName {
-  override val name = "credits-refunds-repay"
-
-  override def toString: String = "Credits/Refunds Repayment"
-}
-
-case object PaymentHistoryRefunds extends FeatureSwitchName {
-  override val name = "payment-history-refunds"
-
-  override def toString: String = "Payment History Refunds"
-}
-
-case object ObligationsFrontend extends FeatureSwitchName {
-  override val name: String = "obligations-frontend"
-  override def toString: String = "Obligations Frontend"
-}
-
-case object OptOutFs extends FeatureSwitchName {
-  override val name = "opt-out"
-  override val toString = "Opt Out"
-}
-
-case object SignUpFs extends FeatureSwitchName {
-  override val name = "sign-up"
-  override val toString = "Sign Up"
-}
-
-case object InvalidFS extends FeatureSwitchName {
-  override val name: String = "invalid-feature-switch"
-  override val toString: String = "Invalid feature Switch"
-}
-
-case object DisplayBusinessStartDate extends FeatureSwitchName {
-  override val name: String = "display-business-start-date"
-  override val toString: String = "Display Business Start Date"
-}
-
 case object PenaltiesAndAppeals extends FeatureSwitchName {
   override val name: String = "penalties-and-appeals"
   override val toString: String = "Penalties and Appeals"
-}
-
-case object PenaltiesBackendEnabled extends FeatureSwitchName {
-  override val name: String = "penalties-backend"
-  override val toString: String = "Penalties Backend"
-}
-
-case object SelfServeTimeToPayR17 extends FeatureSwitchName {
-  override val name: String = "self-serve-time-to-pay-r17"
-  override val toString: String = "Self Serve Time To Pay R17"
-}
-
-case object TriggeredMigration extends FeatureSwitchName {
-  override val name: String = "triggered-migration"
-  override val toString: String = "Triggered Migration"
-}
-
-case object SubmitClaimToAdjustToNrs extends FeatureSwitchName {
-  override val name: String = "submit-claim-to-adjust-to-nrs"
-  override val toString: String = "Submit Claim to Adjust to NRS"
 }
 
 case object PostFinalisationAmendmentsR18 extends FeatureSwitchName {
@@ -216,29 +111,9 @@ case object `CY+1YouMustWaitToSignUpPageEnabled` extends FeatureSwitchName {
   override val toString: String = "CY+1 You Must Wait To Sign Up Page Enabled"
 }
 
-case object NewHomePage extends FeatureSwitchName {
-  override val name: String = "new-home-page"
-  override val toString: String = "New Home Page"
-}
-
-case object OverseasBusinessAddress extends FeatureSwitchName {
-  override val name: String = "overseas-business-address"
-  override val toString: String = "Overseas Business Address"
-}
-
-case object RecentActivity extends FeatureSwitchName {
-  override val name: String = "recent-activity"
-  override val toString: String = "Recent Activity"
-}
-
 case object MortgageEvidence extends FeatureSwitchName {
   override val name: String = "mortgage-evidence"
   override val toString: String = "mortgage-evidence"
-}
-
-case object IdempotencyKeyForCreateIncomeSource extends FeatureSwitchName {
-  override val name: String = "idempotency-key-for-create-income-source"
-  override val toString: String = "Idempotency Key for Create an Income Source"
 }
 
 case object NoIncomeSourcesRedirect extends FeatureSwitchName {
@@ -246,7 +121,17 @@ case object NoIncomeSourcesRedirect extends FeatureSwitchName {
   override val toString: String = "No Income Sources Redirect"
 }
 
-case object BusinessDetailsFrontend extends FeatureSwitchName {
-  override val name: String = "business-details-frontend"
-  override val toString: String = "Business Details Frontend"
+case object NotRequiredFS extends FeatureSwitchName {
+  override val name: String = "not-required-FS"
+  override val toString: String = "Not required feature Switch"
+}
+
+case object ObligationsFrontend extends FeatureSwitchName {
+  override val name: String = "obligations-frontend"
+  override def toString: String = "Obligations Frontend"
+}
+
+case object FinancialsFrontend extends FeatureSwitchName {
+  override val name: String = "financials-frontend"
+  override val toString: String = "Financials Frontend"
 }
