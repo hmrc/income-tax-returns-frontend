@@ -1,16 +1,25 @@
 
 # income-tax-returns-frontend
 
-[![Build Status](https://travis-ci.org/hmrc/income-tax-view-change-frontend.svg)](https://travis-ci.org/hmrc/income-tax-view-change-frontend) [ ![Download](https://api.bintray.com/packages/hmrc/releases/income-tax-view-change-frontend/images/download.svg) ](https://bintray.com/hmrc/releases/income-tax-view-change-frontend/_latestVersion)
+This is the repository for the Income Tax Financials Details frontend.
 
+Backends:
+https://github.com/hmrc/income-tax-calculation
+https://github.com/hmrc/income-tax-obligations
+https://github.com/hmrc/income-tax-business-details
+https://github.com/hmrc/income-tax-financial-details
 
-This is the repository for the Income Tax Returns frontend.
+Stub: https://github.com/hmrc/income-tax-vc-fs-and-stub
+
+Feature switch info: https://confluence.tools.tax.service.gov.uk/pages/viewpage.action?spaceKey=MISUV&title=Feature+Switches+State
+
 Requirements
 ------------
 
 This service is written in [Scala](http://www.scala-lang.org/) and [Play](http://playframework.com/), so needs at least a [JRE] to run.
 
 ## Compiling the application
+
 To simply compile application across all three code domains: code, unit tests and integration tests
 run following command:
 
@@ -20,13 +29,11 @@ sbt compileAll
 
 ## Run the application
 
-
 To start all Service Manager services from the latest RELEASE version instead of snapshot execute the following:
 
 ```
-sm2 --start ITVC_ALL --appendArgs '{"CITIZEN_DETAILS":["-Dmongodb.cid-sautr-cache.enabled=false"]}'
+sm2 --start ITVC_TEST --appendArgs '{"CITIZEN_DETAILS":["-Dmongodb.cid-sautr-cache.enabled=false"]}'
 ```
-
 
 ### To run the application locally execute the following:
 
@@ -39,18 +46,11 @@ sbt 'run 9097'
 ```
 sbt "run 9097 -Dplay.http.router=testOnlyDoNotUseInAppConf.Routes"
 ```
-or
-```
-./run.sh
-```
+
 ## Test the application
 
 To test the application execute:
 
-```
-./run_all_tests.sh
-```
-or
 ```
 sbt clean coverage test it/test coverageOff coverageReport
 ```
