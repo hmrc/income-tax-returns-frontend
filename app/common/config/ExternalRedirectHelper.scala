@@ -35,6 +35,12 @@ trait ExternalRedirectHelper {
 
   lazy val agentHomeUrl: String =
     s"$hubAgentBaseUrl/client-income-tax"
+
+  lazy val individualYourTasksUrl: String =
+    s"$hubBaseUrl/your-tasks"
+    
+  lazy val agentYourTasksUrl: String =
+    s"$hubAgentBaseUrl/your-tasks"
     
   def homePageUrl(isAgent: Boolean): String = if (isAgent) agentHomeUrl else individualHomeUrl
 
