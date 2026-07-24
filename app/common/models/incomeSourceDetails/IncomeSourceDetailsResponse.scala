@@ -17,6 +17,7 @@
 package common.models.incomeSourceDetails
 
 import common.services.DateServiceInterface
+import common.enums.TriggeredMigration.Channel.{CustomerLed, HmrcConfirmed}
 import play.api.libs.json.{Format, JsValue, Json, OFormat}
 import play.api.{Logger, Logging}
 
@@ -60,6 +61,10 @@ case class IncomeSourceDetailsModel(
     Logger("application").debug(s"[IncomeSourceDetailsModel][startingTaxYear] Businesses firstAccountingPeriodEndDate:${businesses.flatMap(_.firstAccountingPeriodEndDate)}, properties firstAccountingPeriodEndDate: ${properties.flatMap(_.firstAccountingPeriodEndDate)}")
     (businesses.flatMap(_.firstAccountingPeriodEndDate) ++ properties.flatMap(_.firstAccountingPeriodEndDate))
       .map(_.getYear).sortWith(_ < _).headOption
+  }
+
+  def isConfirmedUser: Boolean = {
+    Set(CustomerLed.getValue, HmrcConfirmed.getValue).contains(channel)
   }
 }
 
