@@ -45,11 +45,12 @@ class FeatureSwitchingSpec extends TestSupport with MockitoSugar {
     ITSASubmissionIntegration,
     PenaltiesAndAppeals,
     PostFinalisationAmendmentsR18,
-    `CY+1YouMustWaitToSignUpPageEnabled`,
     MortgageEvidence,
     NoIncomeSourcesRedirect,
     ObligationsFrontend,
-    FinancialsFrontend
+    FinancialsFrontend,
+    TriggeredMigration,
+    BusinessDetailsFrontend
   )
 
   "FeatureSwitchName" when {

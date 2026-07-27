@@ -43,14 +43,16 @@ object FeatureSwitchName {
       JsSuccess(PenaltiesAndAppeals)
     case JsString(PostFinalisationAmendmentsR18.name) =>
       JsSuccess(PostFinalisationAmendmentsR18)
-    case JsString(`CY+1YouMustWaitToSignUpPageEnabled`.name) =>
-      JsSuccess(`CY+1YouMustWaitToSignUpPageEnabled`)
     case JsString(MortgageEvidence.name) =>
       JsSuccess(MortgageEvidence)
     case JsString(NoIncomeSourcesRedirect.name) =>
       JsSuccess(NoIncomeSourcesRedirect)
     case JsString(ObligationsFrontend.name) =>
       JsSuccess(ObligationsFrontend)
+    case JsString(BusinessDetailsFrontend.name) =>
+      JsSuccess(BusinessDetailsFrontend)
+    case JsString(TriggeredMigration.name) =>
+      JsSuccess(TriggeredMigration)
     case JsString(FinancialsFrontend.name) =>
       JsSuccess(FinancialsFrontend)
     case invalidName =>
@@ -80,10 +82,11 @@ object FeatureSwitchName {
       ITSASubmissionIntegration,
       PenaltiesAndAppeals,
       PostFinalisationAmendmentsR18,
-      `CY+1YouMustWaitToSignUpPageEnabled`,
       MortgageEvidence,
       NoIncomeSourcesRedirect,
       ObligationsFrontend,
+      BusinessDetailsFrontend,
+      TriggeredMigration,
       FinancialsFrontend
     )
 
@@ -106,11 +109,6 @@ case object PostFinalisationAmendmentsR18 extends FeatureSwitchName {
   override val toString: String = "Post Finalisation Amendments R18"
 }
 
-case object `CY+1YouMustWaitToSignUpPageEnabled` extends FeatureSwitchName {
-  override val name: String = "cy-plus-one-you-must-wait-to-sign-up-page-enabled"
-  override val toString: String = "CY+1 You Must Wait To Sign Up Page Enabled"
-}
-
 case object MortgageEvidence extends FeatureSwitchName {
   override val name: String = "mortgage-evidence"
   override val toString: String = "mortgage-evidence"
@@ -129,6 +127,16 @@ case object NotRequiredFS extends FeatureSwitchName {
 case object ObligationsFrontend extends FeatureSwitchName {
   override val name: String = "obligations-frontend"
   override def toString: String = "Obligations Frontend"
+}
+
+case object BusinessDetailsFrontend extends FeatureSwitchName {
+  override val name: String = "business-details-frontend"
+  override val toString: String = "Business Details Frontend"
+}
+
+case object TriggeredMigration extends FeatureSwitchName {
+  override val name: String = "triggered-migration"
+  override def toString: String = "Triggered Migration"
 }
 
 case object FinancialsFrontend extends FeatureSwitchName {
