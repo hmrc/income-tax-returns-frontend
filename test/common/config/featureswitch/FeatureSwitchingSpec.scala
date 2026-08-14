@@ -50,7 +50,8 @@ class FeatureSwitchingSpec extends TestSupport with MockitoSugar {
     ObligationsFrontend,
     FinancialsFrontend,
     TriggeredMigration,
-    BusinessDetailsFrontend
+    BusinessDetailsFrontend,
+    NewHubContextRootEnabled
   )
 
   "FeatureSwitchName" when {
