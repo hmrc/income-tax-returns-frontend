@@ -406,11 +406,14 @@ newHome.overview.tax-year.proofOfIncome.card.sa302value.action   = Bwrw golwg dr
 ### Help Tab
 new.home.help.heading                                           = Troi Treth yn Ddigidol
 new.home.help.openInNewTab                                      = Mae pob cysylltiad yn agor mewn tab newydd.
-new.home.navigation.tabs.help                                   = Help
+new.home.navigation.tabs.help                                   = Cymorth
+new.home.navigation.opensInNewTab                               = (yn agor mewn tab newydd)
 
 home.help.link.makingTaxDigital.incomeTax                       = Dod o hyd i ragor o wybodaeth am Droi Treth yn Ddigidol ar gyfer Treth Incwm
-home.help.link.selfAssessment.payTaxBill                        = Dod o hyd i ragor o wybodaeth am dalu’ch bil treth Hunanasesiad
+home.help.link.makingTaxDigital.changeCircumstances             = Darganfod beth sydd angen i chi ei wneud os bydd eich amgylchiadau’n newid
 home.help.link.makingTaxDigital.findSoftware                    = Dod o hyd i feddalwedd sy’n cydweddu â Throi Treth yn Ddigidol ar gyfer Treth Incwm
+home.help.link.makingTaxDigital.findPenaltyInfo                 = Dod o hyd i wybodaeth am gosbau am Droi Treth yn Ddigidol ar gyfer Treth Incwm
+home.help.link.selfAssessment.payTaxBill                        = Dod o hyd i ragor o wybodaeth am dalu’ch bil treth Hunanasesiad
 home.help.link.taxSupport.getHelp                               = Cael help os ydych yn ei chael hi’n anodd talu’ch treth
 
 ## Recent Activity Tab
@@ -550,6 +553,7 @@ tax-year-summary.payments.amount                               = Swm
 tax-year-summary.payments.paymentOnAccount1.text               = Taliad cyntaf ar gyfrif
 tax-year-summary.payments.paymentOnAccount2.text               = Ail daliad ar gyfrif
 tax-year-summary.payments.balancingCharge.text                 = Taliad mantoli
+tax-year-summary.payments.enquiryAmendment.text                = Swm ychwanegol i’w dalu oherwydd diwygiad yn sgil ymholiad gan CThEF
 tax-year-summary.payments.lpi.paymentOnAccount1.text           = Llog am dalu’n hwyr ar gyfer taliad ar gyfrif 1 o 2
 tax-year-summary.payments.lpi.paymentOnAccount2.text           = Llog am dalu’n hwyr ar gyfer taliad ar gyfrif 2 o 2
 tax-year-summary.payments.lpi.balancingCharge.text             = Llog am dalu’n hwyr ar gyfer y Taliad Mantoli
@@ -806,6 +810,31 @@ tax-year-summary.calculation-example                               = Er enghraif
 tax-year-summary.calculation-contact-hmrc                          = Os yw’r dyddiad hwnnw wedi mynd heibio neu os na allwch ddiwygio’ch Ffurflen Dreth am reswm arall,
 tax-year-summary.calculation-contact-hmrc-link                     = bydd angen i chi gysylltu â CThEF
 tax-year-summary.calculation-bill                                  = Caiff eich cyfrifiad yn ogystal â’ch bil ei ddiweddaru yn seiliedig ar yr hyn yr ydych yn rhoi gwybod amdano. Gallai hyn olygu y bydd yn rhaid i chi dalu mwy o dreth, neu gallwch hawlio ad-daliad.
+
+# Tax Year Summary - Errors and Corrections #
+tax-year-summary.latest-calculation.correction-revenueAmendment.desc          = Mae CThEF wedi diwygio’ch Ffurflen Dreth ar {0} ac, o ganlyniad, dyma’ch cyfrifiad mwyaf diweddar.
+tax-year-summary.latest-calculation.correction-revenueAmendment.inset-1       = Rydym wedi diweddaru’ch cyfrifiad treth.
+tax-year-summary.latest-calculation.correction-revenueAmendment.inset-2       = Mae’n bosibl bod faint o dreth sydd arnoch wedi cynyddu neu ostwng.
+tax-year-summary-latest-calculation.correction-revenueAmendment.inset-3       = Gallwch wirio
+tax-year-summary.latest-calculation.correction-revenueAmendment.inset-link-1  = hanes eich taliadau, credydau ac ad-daliadau
+tax-year-summary.latest-calculation.correction-revenueAmendment.inset-inset-4 = neu weld
+tax-year-summary.latest-calculation.correction-revenueAmendment.inset-link-2  = faint sydd arnoch a sut i wneud taliad
+
+tax-year-summary.previous-calculation.correction-revenueAmendment.desc            = Diwygiodd CThEF eich Ffurflen Dreth ar {0}. Newidiodd hyn eich cyfrifiad treth ar yr adeg honno. Mae hwn bellach yn gyfrifiad blaenorol. Efallai bod cyfrifiad mwy diweddar wedi’i wneud ers hynny.
+tax-year-summary.previous-calculation.correction-revenueAmendment.subheading      = Y cyfrifiad a wnaed ar {0}
+tax-year-summary.previous-calculation.correction-revenueAmendment.subheading.desc = Mae’r cyfrifiad hwn yn adlewyrchu’r sefyllfa dreth ar yr adeg honno.
+
+tax-year-summary.latest-calculation.rejection.desc          = Ar {0} gwnaeth CThEF newid eich Ffurflen Dreth yn ôl i’r hyn yr oedd hi yn wreiddiol cyn i CThEF ei diwygio. O ganlyniad i hyn, dyma eich cyfrifiad mwyaf diweddarBottom of Form
+tax-year-summary.latest-calculation.rejection.inset-1       = Rydym wedi diweddaru’ch cyfrifiad treth.
+tax-year-summary.latest-calculation.rejection.inset-2       = Mae’n bosibl bod faint o dreth sydd arnoch wedi cynyddu neu ostwng.
+tax-year-summary-latest-calculation.rejection.inset-3       = Gallwch wirio
+tax-year-summary.latest-calculation.rejection.inset-link-1  = hanes eich taliadau, credydau ac ad-daliadau
+tax-year-summary.latest-calculation.rejection.inset-inset-4 = neu weld
+tax-year-summary.latest-calculation.rejection.inset-link-2  = faint sydd arnoch a sut i wneud taliad
+
+tax-year-summary.previous-calculation.rejection.desc            = Diwygiodd CThEF eich Ffurflen Dreth ar {0}. Newidiodd hyn eich cyfrifiad treth ar yr adeg honno. Mae hwn bellach yn gyfrifiad blaenorol. Efallai bod cyfrifiad mwy diweddar wedi’i wneud ers hynny.
+tax-year-summary.previous-calculation.rejection.subheading      = Y cyfrifiad a wnaed ar {0}
+tax-year-summary.previous-calculation.rejection.subheading.desc = Mae’r cyfrifiad hwn yn adlewyrchu’r sefyllfa dreth ar yr adeg honno.
 
 ## Income Breakdown Page ##
 income_breakdown.heading                                        = Incwm
@@ -1918,6 +1947,7 @@ refund-to-taxpayer.tableHead.total-interest                     = Cyfanswm y llo
 refund-to-taxpayer.tableHead.varied-interest-rates-value        = Roedd y gyfradd llog yn amrywio rhwng {0}% a {1}% o {2} i {3}
 refund-to-taxpayer.method-type-bacs                             = Bacs
 refund-to-taxpayer.method-type-card                             = Cerdyn
+refund-to-taxpayer.method-type-repayment-to-card                = Ad-daliad i gerdyn
 refund-to-taxpayer.method-type-postal-order                     = Archeb Bost
 refund-to-taxpayer.method-type-payable-order-repayment          = Ad-daliad archeb talu
 refund-to-taxpayer.method-type-bacs-payment-out                 = Taliad BACS i chi
@@ -1946,7 +1976,7 @@ whatYouOwe.sa-adjust-link-body                                  = Addasu taliada
 whatYouOwe.sa-note-2-heading                                    = Gall fod gennych daliadau’n ddyledus o hyd ar gyfer eich blynyddoedd treth Hunanasesiad blaenorol
 whatYouOwe.sa-note-2-body                                       = I wirio a oes gennych daliadau heb eu talu, mae angen i chi fynd i’ch
 whatYouOwe.sa-note-2-body-agent-1                               = Er mwyn bwrw golwg dros gyfrif eich cleient o’r adeg cyn iddo gofrestru ar gyfer y cynllun Troi Treth yn Ddigidol ar gyfer Treth Incwm, mae angen i chi fewngofnodi i’ch
-whatYouOwe.sa-note-2-heading-agent                              = Lledaenwch gost eich Hunanasesiad
+whatYouOwe.sa-note-2-heading-agent                              = Gall fod gennych daliadau’n ddyledus o hyd ar gyfer eich blynyddoedd treth Hunanasesiad blaenorol
 whatYouOwe.sa-note-2-agent-2                                    = Er mwyn bwrw golwg dros flynyddoedd treth eich cleient cyn iddo gofrestru ar gyfer y cynllun Troi Treth yn Ddigidol ar gyfer Treth Incwm, mae angen i chi fewngofnodi i’ch
 whatYouOwe.sa-note-2-body-agent-2                               = Bydd hwn yn Ddynodydd Defnyddiwr (ID) a chyfrinair ar gyfer Porth y Llywodraeth gwahanol i’ch cyfrif gwasanaethau asiant.
 whatYouOwe.sa-link-2                                            = cyfrif Hunanasesiad ar-lein blaenorol
@@ -1962,6 +1992,7 @@ whatYouOwe.tableHead.amount-due                                 = Swm
 whatYouOwe.tableHead.tax-year                                   = Crynodeb o’r flwyddyn dreth
 whatYouOwe.tableHead.interest                                   = Llog hyd yma
 whatYouOwe.tableRow.na                                          = Ddim yn berthnasol
+whatYouOwe.total-row.label                                      = Cyfanswm (heb gynnwys llog sy’n cronni):
 whatYouOwe.paymentOnAccount1.text							    = Taliad cyntaf ar gyfrif
 whatYouOwe.paymentOnAccount2.text							    = Ail daliad ar gyfrif
 whatYouOwe.reviewAndReconcilePoa1.text                          = Taliad cyntaf ar gyfrif: swm ychwanegol o’ch Ffurflen Dreth
@@ -1970,6 +2001,7 @@ whatYouOwe.lpi.reviewAndReconcilePoa1.text                      = Llog ar y tali
 whatYouOwe.lpi.reviewAndReconcilePoa2.text                      = Llog ar yr ail daliad ar gyfrif: swm ychwanegol
 whatYouOwe.hmrcAdjustment.text                                  = Addasiad CThEF
 whatYouOwe.balancingCharge.text  							    = Taliad mantoli
+whatYouOwe.enquiryAmendment.text                                = Swm ychwanegol i’w dalu oherwydd diwygiad yn sgil ymholiad gan CThEF
 whatYouOwe.lateSubmissionPenalty.text                              = Cosb am gyflwyno’n hwyr
 whatYouOwe.firstLatePaymentPenalty.text                            = Cosb gyntaf am dalu’n hwyr
 whatYouOwe.secondLatePaymentPenalty.text                           = Ail gosb am dalu’n hwyr
@@ -2030,11 +2062,12 @@ whatYouOwe.adjust-poa.paid-3                                    = ar unrhyw adeg
 whatYouOwe.adjust-poa.paid-4                                    = 31 Ionawr {0}
 whatYouOwe.adjust-poa.paid-5                                    = fan bellaf.
 whatYouOwe.interestChargesWarning                               = Bydd taliadau llog yn parhau i gynyddu bob dydd nes bod y taliadau y maent yn ymwneud â nhw yn cael eu talu’n llawn.
-whatYouOwe.interestChargesWarning.crystallised                  = Mae’r llog hyd yma wedi’i amcangyfrif. Er mwyn ei atal rhag cynyddu bob dydd, talwch y dreth gysylltiedig yn llawn. Yna gall gymryd hyd at 3 diwrnod gwaith i gyfanswm y llog gael ei gyfrifo a’i ddangos yma.
+whatYouOwe.interestChargesWarning.accruingInterest              = Mae’r llog hyd yma wedi’i amcangyfrif. Er mwyn ei atal rhag cynyddu bob dydd, talwch y dreth gysylltiedig yn llawn. Yna gall gymryd hyd at 3 diwrnod gwaith i gyfanswm y llog gael ei gyfrifo a’i ddangos yma.
 whatYouOwe.pre-mtd.heading                                      = Gall fod gennych daliadau’n ddyledus o hyd ar gyfer eich blynyddoedd treth Hunanasesiad blaenorol
 whatYouOwe.pre-mtd.body                                         = I wirio a oes gennych daliadau heb eu talu, mae angen i chi fynd i’ch
 whatYouOwe.pre-mtd-link                                         = cyfrif Hunanasesiad ar-lein blaenorol
 whatYouOwe.pre-mtd-outstanding-charges                          = Bydd unrhyw daliad a wneir yn cael ei ddefnyddio ar gyfer treth sydd heb eu talu ar gyfer blynyddoedd treth Hunanasesiad blaenorol yn gyntaf, ac ni fydd yn cael ei arddangos yma.
+whatYouOwe.revenueAmendment.label                               = Swm ychwanegol i’w dalu oherwydd diwygiad yn sgil ymholiad gan CThEF
 
 making-payment.heading                                          = Gwneud taliad
 making-payment.what-payment-goes-towards.heading                = Tuag at beth fydd eich taliad yn mynd
@@ -2049,10 +2082,11 @@ making-payment.accruing-interest.p2.before                      = Yna gall gymry
 making-payment.accruing-interest.p2.link                        = yr hyn sydd arnoch
 making-payment.accruing-interest.p2.after                       = .
 making-payment.penalty.heading                                  = Os oes gennych gosb i’w thalu
-making-payment.penalty.p1                                       = Rhaid i chi dalu unrhyw dreth sy’n orddyledus neu dreth sy’n cronni llog cyn y gallwch ddefnyddio’r gwasanaeth hwn i dalu eich cosb.
-making-payment.penalty.p2.before                                = Fel arall, gallwch
-making-payment.penalty.p2.link                                  = dalu eich cosb ar-lein nawr (yn agor tab newydd)
-making-payment.penalty.p2.after                                 = gan ddefnyddio’r cyfeirnod talu yn y llythyr neu’r neges ddiogel ddigidol a gawsoch gan CThEF.
+making-payment.penalty.p1                                       = Os nad yw’r dreth sy’n gysylltiedig â’ch cosb yn cael ei thalu, gall y gosb gynyddu neu mae’n bosibl y byddwch yn cael ail gosb.
+making-payment.penalty.p2                                       = Os oes arnoch dreth cyn eich cosb, bydd taliadau a wneir drwy’r gwasanaeth hwn yn talu’r dreth sydd arnoch cyn talu’r gosb.
+making-payment.penalty.p3.before                                = Fel arall,
+making-payment.penalty.p3.link                                  = gallwch dalu eich cosb ar-lein nawr
+making-payment.penalty.p3.after                                 = Bydd angen y cyfeirnod talu arnoch, sy’n 14 neu 15 o gymeriadau ac yn dechrau gydag X. Mae hwn i’w weld ar yr Hysbysiad i Dalu a gawsoch gan CThEF.
 making-payment.money-in-account.heading                         = Arian yn eich cyfrif
 making-payment.money-in-account.p1.before                       = Mae gennych
 making-payment.money-in-account.p1.link                         = arian yn eich cyfrif
@@ -2069,6 +2103,7 @@ chargeSummary.reviewAndReconcilePoa2.text				        = Ail daliad ar gyfrif: swm
 chargeSummary.reviewAndReconcilePoa1Credit.text				    = Taliad cyntaf ar gyfrif: credyd o’ch Ffurflen Dreth
 chargeSummary.reviewAndReconcilePoa2Credit.text				    = Ail daliad ar gyfrif: credyd o’ch Ffurflen Dreth
 chargeSummary.balancingCharge.text                              = Taliad mantoli
+chargeSummary.enquiryAmendment.text                             = Swm ychwanegol i’w dalu oherwydd diwygiad yn sgil ymholiad gan CThEF
 chargeSummary.class2Nic.text                                    = Yswiriant Gwladol Dosbarth 2
 chargeSummary.codingOut.text                                    = Taliad mantoli a gesglir drwy’r cod treth TWE
 chargeSummary.poa1CodedOut.text                                 = Taliad ar gyfrif cyntaf sy’n cael ei gasglu drwy god treth TWE
@@ -2214,6 +2249,7 @@ chargeSummary.chargeHistory.created.reviewAndReconcilePoa1.text         = Creodd
 chargeSummary.chargeHistory.created.reviewAndReconcilePoa2.text         = Creodd CThEF y swm ychwanegol hwn ar gyfer eich ail daliad ar gyfrif yn seiliedig ar eich Ffurflen Dreth
 chargeSummary.chargeHistory.created.lateSubmissionPenalty.text          = Gwnaeth CThEF greu eich cosb am gyflwyno’n hwyr
 chargeSummary.chargeHistory.created.firstLatePaymentPenalty.text        = Gwnaeth CThEF greu eich cosb am dalu’n hwyr
+chargeSummary.chargeHistory.created.enquiryAmendment.text               = Cafodd y swm ychwanegol ei greu pan wnaeth CThEF diwygio’ch Ffurflen Dreth
 chargeSummary.chargeHistory.created.itsaReturnAmendment.text            = Creodd CThEF eich swm ychwanegol taliad mantoli o ganlyniad i Ffurflen Dreth ddiwygiedig
 chargeSummary.chargeHistory.created.hmrcAdjustment.text                 = Addasiad CThEF wedi’i greu
 chargeSummary.chargeHistory.request.paymentOnAccount1.text	   	        = Y taliad cyntaf ar gyfrif wedi’i ostwng oherwydd cais gan y trethdalwr
@@ -2583,6 +2619,7 @@ yourSelfAssessmentChargeSummary.whatIsPaymentOnAccount.p4           = Help i dde
 
 yourSelfAssessmentChargeSummary.chargeHistory.caption.generic.text.heading              = Mae’r tâl hwn yn mynd tuag at eich bil treth {0} i {1}
 yourSelfAssessmentChargeSummary.chargeHistory.returnAmendment.caption.text              = Mae’r swm ychwanegol taliad mantoli hwn yn cyfrannu at eich bil treth ar gyfer {0} i {1}
+yourSelfAssessmentChargeSummary.chargeHistory.enquiryAmendment.caption.text             = Mae’r swm ychwanegol hwn yn cyfrannu at eich bil treth o {0} i {1}.
 yourSelfAssessmentChargeSummary.chargeHistory.poaOneReconciliation.caption.text         = Mae’r swm ychwanegol taliad cyntaf ar gyfrif hwn yn cyfrannu at eich bil treth {0} i {1}.
 yourSelfAssessmentChargeSummary.chargeHistory.poaTwoReconciliation.caption.text         = Mae’r swm ychwanegol ail daliad ar gyfrif hwn yn cyfrannu at eich bil treth {0} i {1}.
 
@@ -2611,6 +2648,8 @@ yourSelfAssessmentChargeSummary.codingOutPOAMessageFullyCollected       = Dyma o
 
 yourSelfAssessmentChargeSummary.classTwoNICSContent.p1                              = Dyma’r taliad Yswiriant Gwladol Dosbarth 2 ar gyfer blwyddyn dreth {0} i {1}.
 
+yourSelfAssessmentChargeSummary.enquiryAmendment.text.heading                       = Swm ychwanegol i’w dalu oherwydd diwygiad yn sgil ymholiad gan CThEF
+
 yourSelfAssessmentChargeSummary.balancingCharge.text.heading                        = Taliad mantoli
 yourSelfAssessmentChargeSummary.paymentOnAccount1.text.heading                      = Taliad cyntaf ar gyfrif
 yourSelfAssessmentChargeSummary.paymentOnAccount2.text.heading                      = Ail daliad ar gyfrif
@@ -2620,6 +2659,7 @@ yourSelfAssessmentChargeSummary.class2Nic.text.heading                          
 yourSelfAssessmentChargeSummary.codingOut.text.heading                              = Taliad mantoli a gesglir drwy’r cod treth TWE
 yourSelfAssessmentChargeSummary.itsaReturnAmendmentCredit.text.heading              = Credyd o’ch Ffurfln Dreth ddiwygiedig
 yourSelfAssessmentChargeSummary.unknown.heading                                     = Anhysbys
+yourSelfAssessmentChargeSummary.enquiryAmendment.text.heading                       = Swm ychwanegol i’w dalu oherwydd diwygiad yn sgil ymholiad gan CThEF
 
 yourSelfAssessmentChargeSummary.poa1CodedOut.text.heading                           = Taliad cyntaf ar gyfrif sy’n cael ei gasglu drwy’ch cod treth TWE
 yourSelfAssessmentChargeSummary.poa2CodedOut.text.heading                           = Ail daliad ar gyfrif sy’n cael ei gasglu drwy’ch cod treth TWE
@@ -2645,6 +2685,10 @@ yourSelfAssessmentChargeSummary.firstLatePaymentPenalty.link = Gweld sut y cyfri
 
 yourSelfAssessmentChargeSummary.itsaReturnAmendment.p                               = Crëwyd y swm ychwanegol taliad mantoli hwn oherwydd newid a wnaethoch i’ch Ffurflen Dreth.
 yourSelfAssessmentChargeSummary.itsaReturnAmendment.warning                         = Talwch y tâl hwn er mwyn stopio’r llog rhag cynyddu’n ddyddiol.
+
+yourSelfAssessmentChargeSummary.enquiryAmendment.p1                                 = Yn dilyn gwiriad cydymffurfio, gwnaeth CThEF newid i’ch Ffurflen Dreth a elwir yn ‘diwygiad yn sgil ymholiad’. Newidiodd hyn eich
+yourSelfAssessmentChargeSummary.enquiryAmendment.link                               = cyfrifiad treth ar gyfer {0} i {1}
+yourSelfAssessmentChargeSummary.enquiryAmendment.p2                                 = , gan arwain at swm ychwanegol i’w dalu tuag at eich bil treth.
 
 yourSelfAssessmentChargeSummary.itsaReturnAmendmentCredit.p1                        = Mae CThEF wedi ychwanegu credyd at eich cyfrif oherwydd bod eich Ffurflen Dreth ddiwygiedig yn dangos bod eich bil treth ar gyfer {0} i {1} yn rhy uchel.
 yourSelfAssessmentChargeSummary.itsaReturnAmendmentCredit.p2                        = Efallai y bydd CThEF yn defnyddio’r credyd hwn yn awtomatig i dalu’ch biliau treth yn y dyfodol pan fydd y rhain yn dod yn ddyledus.

@@ -124,7 +124,7 @@ trait ExternalRedirectHelper {
 
   def financialsChargeSummaryIndividualUrl(taxYear: Int,
                                            transactionId: String,
-                                           isAccruingInterest: Boolean,
+                                           isAccruingInterest: Boolean = false,
                                            origin: Option[String] = None,
                                            financialsFrontendEnabled: Boolean): String = {
     lazy val queryPathNoOrigin = s"?id=$transactionId&isInterestCharge=$isAccruingInterest"
@@ -137,7 +137,7 @@ trait ExternalRedirectHelper {
 
   def financialsChargeSummaryAgentUrl(taxYear: Int,
                                       transactionId: String,
-                                      isAccruingInterest: Boolean,
+                                      isAccruingInterest: Boolean = false,
                                       financialsFrontendEnabled: Boolean): String = {
     lazy val queryPathString = s"?id=$transactionId&isInterestCharge=$isAccruingInterest"
     if (financialsFrontendEnabled)
@@ -145,4 +145,23 @@ trait ExternalRedirectHelper {
     else
       s"$hubAgentBaseUrl/tax-years/$taxYear/charge$queryPathString"
   }
+
+  lazy val financialsPaymentHistoryIndividualUrl: Boolean => String = financialsFrontendEnabled =>
+    if (financialsFrontendEnabled)
+      s"$financialsBaseUrl/payment-refund-history"
+    else
+      s"$hubBaseUrl/payment-refund-history"
+
+  lazy val financialsPaymentHistoryAgentUrl: Boolean => String = financialsFrontendEnabled =>
+    if (financialsFrontendEnabled)
+      s"$financialsAgentBaseUrl/payment-refund-history"
+    else
+      s"$hubAgentBaseUrl/payment-refund-history"
+
+  def financialsPaymentHistoryUrl(isAgent: Boolean, financialsFrontendEnabled: Boolean): String =
+    if (isAgent)
+      financialsPaymentHistoryAgentUrl(financialsFrontendEnabled)
+    else
+      financialsPaymentHistoryIndividualUrl(financialsFrontendEnabled)
+
 }
