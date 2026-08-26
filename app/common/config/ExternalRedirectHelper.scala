@@ -104,9 +104,9 @@ trait ExternalRedirectHelper {
 
   lazy val financialsWhatYouOweAgentUrl: Boolean => String = financialsFrontendEnabled =>
     if (financialsFrontendEnabled)
-      s"$financialsAgentBaseUrl/what-your-client-owes"
+      s"$financialsAgentBaseUrl/what-you-owe"
     else
-      s"$vcFrontendAgentBaseUrl/what-your-client-owes"
+      s"$vcFrontendAgentBaseUrl/what-you-owe"
 
   def financialsWhatYouOweUrl(isAgent: Boolean, origin: Option[String] = None, financialsFrontendEnabled: Boolean): String =
     if (isAgent)
