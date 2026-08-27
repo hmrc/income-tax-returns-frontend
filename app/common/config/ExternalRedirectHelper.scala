@@ -23,7 +23,8 @@ trait ExternalRedirectHelper {
 
   val servicesConfig: ServicesConfig
   val config: Configuration
-  
+  lazy val hubContextRootEnabledConfig: Boolean = servicesConfig.getBoolean("feature-switch.enable-new-hub-context-root")
+
   lazy val vcFrontendBaseUrl: String = servicesConfig.getString("income-tax-view-change-frontend.baseUrl")
   lazy val vcFrontendAgentBaseUrl: String = s"${vcFrontendBaseUrl}/agents"
 
@@ -33,7 +34,7 @@ trait ExternalRedirectHelper {
   def hubAgentBaseUrl(newHubContextRootEnabled: Boolean): String =
     s"${hubBaseUrl(newHubContextRootEnabled)}/agents"
 
-  def individualHomeUrl(newHubContextRootEnabled: Boolean): String =
+  def individualHomeUrl(newHubContextRootEnabled: Boolean = hubContextRootEnabledConfig): String =
     s"${hubBaseUrl(newHubContextRootEnabled)}/income-tax"
 
   def individualHomeUrlWithOrigin(newHubContextRootEnabled: Boolean, origin: Option[String]): String =
@@ -42,7 +43,7 @@ trait ExternalRedirectHelper {
   def agentHomeUrl(newHubContextRootEnabled: Boolean): String =
     s"${hubAgentBaseUrl(newHubContextRootEnabled)}/client-income-tax"
 
-  def homePageUrl(isAgent: Boolean, newHubContextRootEnabled: Boolean, origin: Option[String] = None): String =
+  def homePageUrl(isAgent: Boolean, newHubContextRootEnabled: Boolean = hubContextRootEnabledConfig, origin: Option[String] = None): String =
     if (isAgent) agentHomeUrl(newHubContextRootEnabled) else individualHomeUrlWithOrigin(newHubContextRootEnabled, origin)
 
   def individualYourTasksUrl(newHubContextRootEnabled: Boolean): String =
@@ -52,7 +53,7 @@ trait ExternalRedirectHelper {
     s"${hubAgentBaseUrl(newHubContextRootEnabled)}/your-tasks"
 
 
-  def enterClientsUTRUrl(newHubContextRootEnabled: Boolean): String =
+  def enterClientsUTRUrl(newHubContextRootEnabled: Boolean = hubContextRootEnabledConfig): String =
     s"${hubAgentBaseUrl(newHubContextRootEnabled)}/client-utr"
 
   def confirmClientUTRUrl(newHubContextRootEnabled: Boolean): String =
@@ -103,9 +104,9 @@ trait ExternalRedirectHelper {
 
   lazy val financialsWhatYouOweAgentUrl: Boolean => String = financialsFrontendEnabled =>
     if (financialsFrontendEnabled)
-      s"$financialsAgentBaseUrl/what-your-client-owes"
+      s"$financialsAgentBaseUrl/what-you-owe"
     else
-      s"$vcFrontendAgentBaseUrl/what-your-client-owes"
+      s"$vcFrontendAgentBaseUrl/what-you-owe"
 
   def financialsWhatYouOweUrl(isAgent: Boolean, origin: Option[String] = None, financialsFrontendEnabled: Boolean): String =
     if (isAgent)
