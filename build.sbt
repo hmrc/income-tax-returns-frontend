@@ -10,9 +10,9 @@ val appName = "income-tax-returns-frontend"
 val cryptoJsonVersion = "8.4.0"
 val bootstrapPlayVersion = "10.8.0"
 val playPartialsVersion = "10.2.0"
-val playFrontendHMRCVersion = "13.9.0"
+val playFrontendHMRCVersion = "13.13.0"
 val catsVersion = "2.13.0"
-val jsoupVersion = "1.23.1"
+val jsoupVersion = "1.23.2"
 val mockitoVersion = "5.23.0"
 val scalaMockVersion = "7.5.5"
 val wiremockVersion = "3.0.1"
@@ -41,7 +41,7 @@ def test(scope: String = "test"): Seq[ModuleID] = Seq(
   "org.scalamock"     %% "scalamock"                    % scalaMockVersion      % scope,
   "org.jsoup"          % "jsoup"                        % jsoupVersion          % scope,
   "org.mockito"        % "mockito-core"                 % mockitoVersion        % scope,
-  "org.scalacheck"    %% "scalacheck"                   % "1.19.0"              % scope,
+  "org.scalacheck"    %% "scalacheck"                   % "1.20.0"              % scope,
   "org.scalatestplus" %% "scalacheck-1-15"              % "3.2.11.0"            % scope,
   "uk.gov.hmrc"       %% s"bootstrap-test-$playVersion" % bootstrapPlayVersion  % "test",
   caffeine,
