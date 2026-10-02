@@ -23,17 +23,13 @@ object CalculationListIntegrationTestConstants {
   val successResponseCrystallised: JsValue = Json.parse(
     """
       |{
-      |   "calculations": [
-      |     { "calculationId": "id1", "calculationType": "crystallisation", "crystallised": true }
-      |   ]
+      |   "crystallised": true
       |}""".stripMargin)
 
   val successResponseNotCrystallised: JsValue = Json.parse(
     """
       |{
-      |   "calculations": [
-      |     { "calculationId": "id1", "calculationType": "inYear", "crystallised": false }
-      |   ]
+      |   "crystallised": false
       |}""".stripMargin)
 
 
@@ -46,14 +42,12 @@ object CalculationListIntegrationTestConstants {
   val successResponseNonCrystallised: JsValue = Json.parse(
     """
       |{
-      |   "calculations": [
-      |     { "calculationId": "id1", "calculationType": "inYear", "crystallised": false }
-      |   ]
+      |   "crystallised": false
       |}""".stripMargin)
 
   val calculationListNonCrystallised: CalculationListModel = {
     CalculationListModel(
-      crystallised = Some(false)
+      crystallised = Some(true)
     )
   }
 
