@@ -18,7 +18,7 @@ package common.connectors
 
 import common.config.FrontendAppConfig
 import play.api.Logging
-import play.api.http.Status.{BAD_GATEWAY, OK, SERVICE_UNAVAILABLE}
+import play.api.http.Status.{INTERNAL_SERVER_ERROR, OK}
 import uk.gov.hmrc.http.client.HttpClientV2
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, StringContextOps}
 
@@ -33,9 +33,6 @@ class CustomerFactsUpdateConnector @Inject()(val http: HttpClientV2,
   def getCustomerFactsUpdateUrl(mtdId: String): String =
     s"${appConfig.incomeTaxBusinessDetailsBaseUrl}/income-tax-business-details/customer-facts/update/$mtdId"
 
-  def isErrorLevelStatus(status: Int): Boolean =
-    status >= 500 && (status != SERVICE_UNAVAILABLE && status != BAD_GATEWAY)
-
   def updateCustomerFacts(mtdId: String)
                          (implicit headerCarrier: HeaderCarrier): Future[HttpResponse] = {
 
@@ -48,7 +45,7 @@ class CustomerFactsUpdateConnector @Inject()(val http: HttpClientV2,
         response.status match {
           case OK =>
             logger.info(s"Customer facts update returned OK for mtdId=$mtdId")
-          case status if isErrorLevelStatus(status) =>
+          case status if status >= INTERNAL_SERVER_ERROR =>
             logger.error(s"Customer facts update failed. status=$status body=${response.body}")
           case status =>
             logger.warn(s"Customer facts update returned status=$status body=${response.body}")
