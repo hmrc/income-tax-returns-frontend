@@ -1090,6 +1090,7 @@ forecast_taxCalc.capitalGainsTax                                = Treth Enillion
 forecast_taxCalc.incomeTaxNicsCgtDue                            = Rhagolwg o swm y dreth Hunanasesiad:
 forecast_taxCalc.noForecast.heading                             = Dim rhagolwg eto
 forecast_taxCalc.noForecast.text                                = Byddwch yn gallu gweld eich rhagolwg ar gyfer y flwyddyn gyfan unwaith y byddwch wedi anfon diweddariad.
+forecast_taxCalc.taxRefunded                                    = Treth a ad-dalwyd eisoes yn ystod y flwyddynl:
 
 ## Tax Years Overview Update Tab ##
 submissionsTab.desc                                                  = Dyma gofnod o’r hyn rydych wedi’i gyflwyno, a’r hyn sydd eto i’w gyflwyno, ar gyfer y flwyddyn dreth.
@@ -2543,6 +2544,7 @@ credit-and-refund.subHeading.has-no-credits-2                     = ac mae ar y 
 
 money-in-your-account.heading                                           = Arian yn eich cyfrif
 money-in-your-account.credit                                            = Credyd: {0}
+money-in-your-account.credit-stand-over-order                           = Credyd sydd ar gael: {0}
 
 money-in-your-account.no-money                                          = Nid oes unrhyw arian yn eich cyfrif ar hyn o bryd.
 money-in-your-account.no-money-one-refund                               = Nid oes gennych unrhyw arian yn eich cyfrif ar hyn o bryd, ond mae gennych
@@ -2556,6 +2558,12 @@ money-in-your-account.all-credit-allocated                              = Mae’
 money-in-your-account.some-credit-allocated.p1                          = Mae {0} wedi’i neilltuo ar gyfer talu’r taliadau sydd ar y gweill. Gallwch hawlio’r arian hwn yn ôl, ond efallai y bydd yn haws i’w adael yn eich cyfrif i osgoi methu unrhyw ddyddiadau cau ar gyfer talu.
 money-in-your-account.some-credit-allocated.p2.1                        = Os ydych yn hawlio mwy na
 money-in-your-account.some-credit-allocated.p2.2                        = bydd angen i chi wneud taliad arall i dalu’r taliadau sydd ar y gweill cyn y dyddiad cau.
+
+money-in-your-account.stand-over-charges.h2                             = Neilltuo credyd i daliadau sy’n ddyledus yn fuan
+money-in-your-account.stand-over-charges.p1                             = Caiff yr arian yn eich cyfrif ei neilltuo’n awtomatig ar gyfer treth sy’n ddyledus cyn pen 30 diwrnod.
+money-in-your-account.stand-over-charges.p2                             = Gallwch adael yr arian yn eich cyfrif i dalu treth sy’n ddyledus yn nes ymlaen.
+money-in-your-account.stand-over-charges.p3                             = Caiff ei ddefnyddio i dalu treth pan fydd yn ddyledus, gan gynnwys unrhyw dreth sydd wedi’i gohirio unwaith na fydd wedi’i gohirio mwyach. Caiff treth sy’n hwyr, ac sy’n denu llog, ei thalu yn gyntaf.
+
 money-in-your-account.where-from.table-caption                          = O ble y daeth yr arian
 money-in-your-account.where-from.table-header.amount                    = Swm
 money-in-your-account.where-from.table-header.tax-year                  = Blwyddyn dreth
