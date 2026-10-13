@@ -49,8 +49,6 @@ object FeatureSwitchName {
       JsSuccess(NoIncomeSourcesRedirect)
     case JsString(TriggeredMigration.name) =>
       JsSuccess(TriggeredMigration)
-    case JsString(NewHubContextRootEnabled.name) =>
-      JsSuccess(NewHubContextRootEnabled)
     case JsString(HideBusinessName.name) =>
       JsSuccess(HideBusinessName)
     case invalidName =>
@@ -83,7 +81,6 @@ object FeatureSwitchName {
       MortgageEvidence,
       NoIncomeSourcesRedirect,
       TriggeredMigration,
-      NewHubContextRootEnabled,
       HideBusinessName
     )
 
@@ -124,11 +121,6 @@ case object NotRequiredFS extends FeatureSwitchName {
 case object TriggeredMigration extends FeatureSwitchName {
   override val name: String = "triggered-migration"
   override def toString: String = "Triggered Migration"
-}
-
-case object NewHubContextRootEnabled extends FeatureSwitchName {
-  override val name: String = "new-hub-context-root"
-  override val toString: String = "New Hub Context-root Enabled"
 }
 
 case object HideBusinessName extends FeatureSwitchName {
