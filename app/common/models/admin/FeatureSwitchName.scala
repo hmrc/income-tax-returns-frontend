@@ -47,16 +47,8 @@ object FeatureSwitchName {
       JsSuccess(MortgageEvidence)
     case JsString(NoIncomeSourcesRedirect.name) =>
       JsSuccess(NoIncomeSourcesRedirect)
-    case JsString(ObligationsFrontend.name) =>
-      JsSuccess(ObligationsFrontend)
-    case JsString(BusinessDetailsFrontend.name) =>
-      JsSuccess(BusinessDetailsFrontend)
     case JsString(TriggeredMigration.name) =>
       JsSuccess(TriggeredMigration)
-    case JsString(FinancialsFrontend.name) =>
-      JsSuccess(FinancialsFrontend)
-    case JsString(NewHubContextRootEnabled.name) =>
-      JsSuccess(NewHubContextRootEnabled)
     case JsString(HideBusinessName.name) =>
       JsSuccess(HideBusinessName)
     case invalidName =>
@@ -88,11 +80,7 @@ object FeatureSwitchName {
       PostFinalisationAmendmentsR18,
       MortgageEvidence,
       NoIncomeSourcesRedirect,
-      ObligationsFrontend,
-      BusinessDetailsFrontend,
       TriggeredMigration,
-      FinancialsFrontend,
-      NewHubContextRootEnabled,
       HideBusinessName
     )
 
@@ -130,29 +118,9 @@ case object NotRequiredFS extends FeatureSwitchName {
   override val toString: String = "Not required feature Switch"
 }
 
-case object ObligationsFrontend extends FeatureSwitchName {
-  override val name: String = "obligations-frontend"
-  override def toString: String = "Obligations Frontend"
-}
-
-case object BusinessDetailsFrontend extends FeatureSwitchName {
-  override val name: String = "business-details-frontend"
-  override val toString: String = "Business Details Frontend"
-}
-
 case object TriggeredMigration extends FeatureSwitchName {
   override val name: String = "triggered-migration"
   override def toString: String = "Triggered Migration"
-}
-
-case object FinancialsFrontend extends FeatureSwitchName {
-  override val name: String = "financials-frontend"
-  override val toString: String = "Financials Frontend"
-}
-
-case object NewHubContextRootEnabled extends FeatureSwitchName {
-  override val name: String = "new-hub-context-root"
-  override val toString: String = "New Hub Context-root Enabled"
 }
 
 case object HideBusinessName extends FeatureSwitchName {
