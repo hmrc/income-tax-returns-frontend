@@ -449,9 +449,9 @@ class TaxYearSummaryResponseAuditModelSpec extends AnyWordSpecLike with TestSupp
           forecastAllowancesAndDeductions = Some(100)
         )
 
-        (auditJson.detail \ "taxYearOverview" \ "calculationAmount").toString shouldBe "JsDefined(2010)"
-        (auditJson.detail \ "taxYearOverview" \ "isCrystallised").toString shouldBe "JsDefined(false)"
-        (auditJson.detail \ "taxYearOverview" \ "forecastAmount").toString shouldBe "JsDefined(2000)"
+        (auditJson.detail \ "taxYearOverview" \ "calculationAmount") shouldBe JsDefined(JsNumber(2010))
+        (auditJson.detail \ "taxYearOverview" \ "isCrystallised") shouldBe JsDefined(JsBoolean(false))
+        (auditJson.detail \ "taxYearOverview" \ "forecastAmount") shouldBe JsDefined(JsNumber(2000))
         (auditJson.detail \ "forecast").toOption.get shouldBe
           Json.obj(
             "income" -> 2000,
@@ -472,11 +472,11 @@ class TaxYearSummaryResponseAuditModelSpec extends AnyWordSpecLike with TestSupp
           forecastIncomeTaxAndNics = Some(120.0),
           forecastAllowancesAndDeductions = Some(100)
         )
-        (auditJson.detail \ "calculation" \ "calculationReason").toString contains "customerRequest"
-        (auditJson.detail \ "calculation" \ "income").toString shouldBe "JsDefined(199505)"
-        (auditJson.detail \ "calculation" \ "allowancesAndDeductions").toString shouldBe "JsDefined(500)"
-        (auditJson.detail \ "calculation" \ "taxableIncome").toString shouldBe "JsDefined(198500)"
-        (auditJson.detail \ "calculation" \ "taxDue").toString shouldBe "JsDefined(2010)"
+        (auditJson.detail \ "calculation" \ "calculationReason") shouldBe JsDefined(JsString("customerRequest"))
+        (auditJson.detail \ "calculation" \ "income") shouldBe JsDefined(JsNumber(199505))
+        (auditJson.detail \ "calculation" \ "allowancesAndDeductions") shouldBe JsDefined(JsNumber(500))
+        (auditJson.detail \ "calculation" \ "taxableIncome") shouldBe JsDefined(JsNumber(198500))
+        (auditJson.detail \ "calculation" \ "taxDue") shouldBe JsDefined(JsNumber(2010))
       }
     }
 
@@ -488,11 +488,11 @@ class TaxYearSummaryResponseAuditModelSpec extends AnyWordSpecLike with TestSupp
           forecastIncomeTaxAndNics = Some(120.0),
           forecastAllowancesAndDeductions = Some(100)
         )
-        (auditJson.detail \ "calculation" \ "calculationReason").toString contains "Unattended Calculation"
-        (auditJson.detail \ "calculation" \ "income").toString shouldBe "JsDefined(199505)"
-        (auditJson.detail \ "calculation" \ "allowancesAndDeductions").toString shouldBe "JsDefined(500)"
-        (auditJson.detail \ "calculation" \ "taxableIncome").toString shouldBe "JsDefined(198500)"
-        (auditJson.detail \ "calculation" \ "taxDue").toString shouldBe "JsDefined(2010)"
+        (auditJson.detail \ "calculation" \ "calculationReason") shouldBe JsDefined(JsString("Unattended Calculation"))
+        (auditJson.detail \ "calculation" \ "income") shouldBe JsDefined(JsNumber(199505))
+        (auditJson.detail \ "calculation" \ "allowancesAndDeductions") shouldBe JsDefined(JsNumber(500))
+        (auditJson.detail \ "calculation" \ "taxableIncome") shouldBe JsDefined(JsNumber(198500))
+        (auditJson.detail \ "calculation" \ "taxDue") shouldBe JsDefined(JsNumber(2010))
       }
     }
   }

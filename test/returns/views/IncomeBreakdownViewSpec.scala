@@ -101,7 +101,7 @@ class IncomeBreakdownViewSpec extends ViewSpec {
       }
 
       "have the correct caption" in new Setup(view) {
-        layoutContent.selectHead(" caption").text.contains(income)
+        layoutContent.selectHead(" caption").text should include(income)
       }
 
       "have the correct guidance" in new Setup(view) {
@@ -142,7 +142,7 @@ class IncomeBreakdownViewSpec extends ViewSpec {
       }
 
       "have the correct caption" in new Setup(view) {
-        layoutContent.selectHead(" caption").text.contains(income)
+        layoutContent.selectHead(" caption").text should include(income)
       }
 
       "have the correct guidance" in new Setup(view) {

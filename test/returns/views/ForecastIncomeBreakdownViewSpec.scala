@@ -190,7 +190,7 @@ class ForecastIncomeBreakdownViewSpec extends ViewSpec {
       }
 
       "have the correct caption" in new Setup(view) {
-        layoutContent.selectHead(" caption").text.contains(messages("forecast_income.heading"))
+        layoutContent.selectHead(" caption").text should include(messages("forecast_income.heading"))
       }
 
       "have a forecast income table" which {

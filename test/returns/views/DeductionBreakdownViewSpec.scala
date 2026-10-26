@@ -65,7 +65,7 @@ class DeductionBreakdownViewSpec extends ViewSpec {
       }
 
       "have the correct caption" in new Setup(view) {
-        layoutContent.selectHead(" caption").text.contains(deductions)
+        layoutContent.selectHead(" caption").text should include(deductions)
       }
 
       "have the correct guidance" in new Setup(view) {
@@ -96,7 +96,7 @@ class DeductionBreakdownViewSpec extends ViewSpec {
     "provided with a calculation with all tax deductions for the 2018 tax year" should {
       val taxYear = 2018
 
-      val deductions = AllowancesAndDeductionsViewModel(
+      val deductionsModel = AllowancesAndDeductionsViewModel(
         personalAllowance = Some(11500.00),
         reducedPersonalAllowance = None,
         personalAllowanceBeforeTransferOut = None,
@@ -111,7 +111,7 @@ class DeductionBreakdownViewSpec extends ViewSpec {
         totalAllowancesAndDeductions = Some(47000),
         totalReliefs = Some(500)
       )
-      lazy val view = deductionBreakdownView(deductions, taxYear, backUrl)
+      lazy val view = deductionBreakdownView(deductionsModel, taxYear, backUrl)
 
       "have the correct title" in new Setup(view) {
         document.title() shouldBe messages("htmlTitle", messages("deduction_breakdown.heading"))
@@ -123,7 +123,7 @@ class DeductionBreakdownViewSpec extends ViewSpec {
       }
 
       "have the correct caption" in new Setup(view) {
-        layoutContent.selectHead(" caption").text().contains(deductions.toString)
+        layoutContent.selectHead(" caption").text() should include(deductions)
       }
 
       "have the correct guidance" in new Setup(view) {

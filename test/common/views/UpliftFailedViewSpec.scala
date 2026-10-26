@@ -57,7 +57,7 @@ class UpliftFailedViewSpec extends ViewSpec {
 
     s"have the link ${messages("Return to Sign in")}" in new Setup(upliftFailedView){
 
-      document.select("a").eachText().toList.contains(messages("Return to Sign in"))
+      document.select("a").eachText().toList should contain("Return to Sign in")
     }
   }
 

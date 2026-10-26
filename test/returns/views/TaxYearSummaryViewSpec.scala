@@ -728,7 +728,7 @@ class TaxYearSummaryViewSpec extends ViewSpec with FeatureSwitching with ChargeC
     val heading: String = "Tax year summary"
     val title: String = "Tax year summary - Manage your Self Assessment - GOV.UK"
     val agentTitle: String = "Tax year summary - Manage your Self Assessment - GOV.UK"
-    val secondaryHeading: String = "6 April {0} to 5 April {1}"
+    val secondaryHeading: String = "6 April 2017 to 5 April 2018"
 
     def explanatoryInsetText(date: String): String = s"This calculation is only based on figures we’ve already received to $date. It’s not your final tax bill."
 
@@ -851,7 +851,7 @@ class TaxYearSummaryViewSpec extends ViewSpec with FeatureSwitching with ChargeC
       "display forecast data when forecast data present" in new Setup(forecastCalcView()) {
         document.title shouldBe title
         document.getOptionalSelector("#forecast").isDefined shouldBe true
-        assert(document.select(hrefForecastSelector).text.contains(messagesLookUp("tax-year-summary.forecast")))
+        document.select(hrefForecastSelector).text should include(messagesLookUp("tax-year-summary.forecast"))
 
         document.getOptionalSelector("#forecast").isDefined shouldBe true
         document.getOptionalSelector(".forecast_table").isDefined shouldBe true
@@ -879,16 +879,15 @@ class TaxYearSummaryViewSpec extends ViewSpec with FeatureSwitching with ChargeC
       }
 
       "have the correct heading" in new Setup(estimateView()) {
-        layoutContent.selectHead("h1").text.contains(heading)
+        layoutContent.selectHead("h1").text shouldBe heading
       }
 
       "have the correct secondary heading" in new Setup(estimateView()) {
-        layoutContent.selectHead("h1").text.contains(secondaryHeading)
-        layoutContent.selectHead("span").text.contains(secondaryHeading)
+        layoutContent.selectHead("span").text shouldBe secondaryHeading
       }
 
       "display the calculation date and title" in new Setup(estimateView()) {
-        layoutContent.h2.selectFirst("h2").text().contains(taxCalculationHeading)
+        layoutContent.select("h2").get(1).text() shouldBe taxCalculationHeading
         layoutContent.selectHead("dl > div:nth-child(1) > dt:nth-child(1)").text shouldBe calculationDate
         layoutContent.selectHead("dl > div:nth-child(1) > dd:nth-child(2)").text shouldBe calcDate
       }
@@ -1109,7 +1108,7 @@ class TaxYearSummaryViewSpec extends ViewSpec with FeatureSwitching with ChargeC
 
       "display no payments due when there are no charges in the payments tab" in new Setup(estimateView(emptyChargeList)) {
         layoutContent.selectHead("#payments p").text shouldBe noPaymentsDue
-        layoutContent.h2.selectFirst("h2").text().contains(charges)
+        layoutContent.select("h2").get(2).text() shouldBe charges
         layoutContent.selectHead("#payments").doesNotHave("table")
       }
 
@@ -1495,7 +1494,7 @@ class TaxYearSummaryViewSpec extends ViewSpec with FeatureSwitching with ChargeC
       "display forecast data when forecast data present" in new Setup(forecastCalcView(isAgent = true)) {
         document.title shouldBe agentTitle
         document.getOptionalSelector("#forecast").isDefined shouldBe true
-        assert(document.select(hrefForecastSelector).text.contains(messagesLookUp("tax-year-summary.forecast")))
+        document.select(hrefForecastSelector).text shouldBe messagesLookUp("tax-year-summary.forecast")
 
         document.getOptionalSelector("#forecast").isDefined shouldBe true
         document.getOptionalSelector(".forecast_table").isDefined shouldBe true
@@ -1521,10 +1520,9 @@ class TaxYearSummaryViewSpec extends ViewSpec with FeatureSwitching with ChargeC
       "display No forecast data yet when calcData returns NOT_FOUND" in new Setup(forecastWithNoCalcData(isAgent = true)) {
         document.title shouldBe agentTitle
         document.getOptionalSelector("#forecast").isDefined shouldBe true
-        assert(document.select(hrefForecastSelector).text.contains(messagesLookUp("tax-year-summary.forecast")))
-
-        document.select(".forecast_table h2").text.contains(messagesLookUp("forecast_taxCalc.noForecast.heading"))
-        document.select(".forecast_table p").text.contains(messagesLookUp("forecast_taxCalc.noForecast.text"))
+        document.select(hrefForecastSelector).text shouldBe messagesLookUp("tax-year-summary.forecast")
+        document.getElementById("no-forecast-data-header").text shouldBe messagesLookUp("forecast_taxCalc.noForecast.heading")
+        document.getElementById("no-forecast-data-note").text shouldBe messagesLookUp("forecast_taxCalc.noForecast.text")
       }
 
       "have the correct title" in new Setup(estimateView(isAgent = true)) {
