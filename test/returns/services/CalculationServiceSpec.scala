@@ -152,13 +152,13 @@ class CalculationServiceSpec extends TestSupport with MockIncomeTaxCalculationCo
       "return a successful response when isPrevious is true" in {
         mockGetCalculationResponse(testMtditid, testNino, "2018", Some(PREVIOUS))(liabilityCalculationSuccessResponse)
 
-        TestCalculationServiceFeatureDisabled.getCalculationDetailsWithFlag(testMtditid, testNino, testTaxYear, isPrevious = true)
+        TestCalculationServiceFeatureDisabled.getCalculationDetailsWithFlag(testMtditid, testNino, testTaxYear, isPrevious = true).futureValue shouldBe liabilityCalculationSuccessResponse
       }
 
       "return a successful response when isPrevious is false" in {
         mockGetCalculationResponse(testMtditid, testNino, "2018", Some(LATEST))(liabilityCalculationSuccessResponse)
 
-        TestCalculationServiceFeatureDisabled.getCalculationDetailsWithFlag(testMtditid, testNino, testTaxYear, isPrevious = false)
+        TestCalculationServiceFeatureDisabled.getCalculationDetailsWithFlag(testMtditid, testNino, testTaxYear, isPrevious = false).futureValue shouldBe liabilityCalculationSuccessResponse
       }
     }
   }

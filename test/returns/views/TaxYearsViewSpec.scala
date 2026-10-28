@@ -238,8 +238,8 @@ class TaxYearsViewSpec extends ViewSpec {
       document.title shouldBe pageContent.title
       document.getElementById("heading").text shouldBe pageContent.errorHeading
       document.getElementById("error-subHeading").text shouldBe pageContent.errorSubheading
-      assert(document.getElementById("error-content").text.contains(pageContent.errorPreLinkText))
-      assert(document.getElementById("error-content").text.contains(pageContent.errorLinkTest))
+      document.getElementById("error-content").text should include(pageContent.errorPreLinkText)
+      document.getElementById("error-content").text should include(pageContent.errorLinkTest)
     }
   }
 
@@ -261,9 +261,9 @@ class TaxYearsViewSpec extends ViewSpec {
       document.title shouldBe pageContent.title
       document.getElementById("heading").text shouldBe pageContent.errorHeading
       document.getElementById("error-subHeading").text shouldBe pageContent.errorSubheading
-      assert(document.getElementById("agent-error-content").text.contains(pageContent.errorAgentPreLinkText))
-      assert(document.getElementById("agent-error-content").text.contains(pageContent.agentErrorLinkText))
-      assert(document.getElementById("agent-error-content").text.contains(pageContent.errorAgentPostLinkText))
+      document.getElementById("agent-error-content").text should include(pageContent.errorAgentPreLinkText)
+      document.getElementById("agent-error-content").text should include(pageContent.agentErrorLinkText)
+      document.getElementById("agent-error-content").text should include(pageContent.errorAgentPostLinkText)
     }
   }
 }

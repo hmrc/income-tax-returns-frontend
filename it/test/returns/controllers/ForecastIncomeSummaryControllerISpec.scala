@@ -19,15 +19,14 @@ package returns.controllers
 import common.auth.MtdItUser
 import common.controllers.ControllerISpecHelper
 import common.enums.{MTDIndividual, MTDSupportingAgent, MTDUserRole}
+import common.helpers.GetInsourceDetailsStub
 import common.helpers.servicemocks.{AuditStub, IncomeTaxCalculationStub}
 import common.models.liabilitycalculation.{EndOfYearEstimate, IncomeSource}
-import common.helpers.GetInsourceDetailsStub
-import play.api.http.Status.*
-import play.api.test.FakeRequest
 import common.testConstants.BaseIntegrationTestConstants.*
 import common.testConstants.IncomeSourceIntegrationTestConstants.{multipleBusinessesAndPropertyResponse, multipleBusinessesAndUkProperty}
-import returns.testConstants.NewCalcBreakdownItTestConstants.liabilityCalculationModelSuccessful
+import play.api.http.Status.*
 import returns.models.audit.ForecastIncomeAuditModel
+import returns.testConstants.NewCalcBreakdownItTestConstants.liabilityCalculationModelSuccessful
 
 object ForecastIncomeSummaryControllerTestConstants {
   val taxableIncome = 12500
@@ -69,7 +68,6 @@ class ForecastIncomeSummaryControllerISpec extends ControllerISpecHelper {
 
   lazy val testUser: MTDUserRole => MtdItUser[_] = mtdUserRole =>
     getTestUser(mtdUserRole, multipleBusinessesAndPropertyResponse)
-  (FakeRequest())
 
   def getPath(mtdRole: MTDUserRole): String = {
     val pathStart = if(mtdRole == MTDIndividual) "" else "/agents"
