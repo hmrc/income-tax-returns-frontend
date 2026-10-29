@@ -46,5 +46,4 @@ object Utilities {
       case None => Json.obj()
     }
 
-  def ratePctString(rate: BigDecimal): String = s"$rate%"
 }
