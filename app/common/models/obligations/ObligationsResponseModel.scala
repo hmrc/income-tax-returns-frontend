@@ -21,8 +21,6 @@ import common.models.incomeSourceDetails.QuarterTypeElection.orderingByTypeName
 import common.models.incomeSourceDetails.{PropertyDetailsModel, QuarterReportingType, QuarterTypeCalendar, QuarterTypeStandard}
 import play.api.libs.json.*
 
-import java.time.LocalDate
-
 sealed trait ObligationsResponseModel
 
 case class ObligationsModel(obligations: Seq[GroupedObligationsModel]) extends ObligationsResponseModel {
@@ -57,20 +55,6 @@ case class ObligationsModel(obligations: Seq[GroupedObligationsModel]) extends O
 
     if (previous) deadlines.sortBy(_.obligation.dateReceived.map(_.toEpochDay)).reverse else deadlines.sortBy(_.obligation.due.toEpochDay)
   }
-
-  def allQuarterly(hideBusinessName: Boolean)(implicit mtdItUser: MtdItUser[_]): Seq[ObligationWithIncomeType] =
-    allDeadlinesWithSource(hideUnknownBusinessName = hideBusinessName)(mtdItUser).filter(_.obligation.obligationType == "Quarterly")
-
-  def allCrystallised(hideBusinessName: Boolean)(implicit mtdItUser: MtdItUser[_]): Seq[ObligationWithIncomeType] =
-    allDeadlinesWithSource(hideUnknownBusinessName = hideBusinessName)(mtdItUser).filter(_.obligation.obligationType == "Crystallisation")
-
-  def obligationsByDate(hideBusinessName: Boolean)(implicit mtdItUser: MtdItUser[_]): Seq[(LocalDate, Seq[ObligationWithIncomeType])] =
-    allDeadlinesWithSource(hideUnknownBusinessName = hideBusinessName).groupBy(_.obligation.due).toList.sortWith((x, y) => x._1.isBefore(y._1))
-
-  def quarterlyUpdatesCounts(hideBusinessName: Boolean)(implicit mtdItUser: MtdItUser[_]): Int =
-    allDeadlinesWithSource(hideUnknownBusinessName = hideBusinessName)(mtdItUser)
-      .filter(_.obligation.obligationType == "Quarterly")
-      .count(_.obligation.status == StatusFulfilled)
 
   def getPeriodForQuarterly(obligation: ObligationWithIncomeType): QuarterReportingType = {
     val dayOfMonth = obligation.obligation.start.getDayOfMonth
