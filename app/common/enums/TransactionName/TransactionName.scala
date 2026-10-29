@@ -30,10 +30,6 @@ case object AllowancesDeductionsDetailsResponse extends TransactionName {
   val name = "allowances-deductions-details-response"
 }
 
-case object ClaimARefund extends TransactionName {
-  val name = "claim-a-refund"
-}
-
 case object ForecastTaxCalculation extends TransactionName {
   val name = "forecast-tax-calculation"
 }
@@ -62,10 +58,6 @@ case object ViewObligationsResponse extends TransactionName {
   val name = "view-obligations-response"
 }
 
-case object PaymentAllocations extends TransactionName {
-  val name = "payment-allocations-response"
-}
-
 case object TaxCalculationDetailsResponse extends TransactionName {
   val name = "tax-calculation-response"
 }
@@ -78,14 +70,6 @@ case object ViewInYearTaxEstimate extends TransactionName {
   val name = "ViewInYearTaxEstimate"
 }
 
-case object RefundToTaxPayer extends TransactionName {
-  val name = "refund-to-taxpayer"
-}
-
-case object CreditsSummary extends TransactionName {
-  val name = "credits-summary"
-}
-
-case object AccessDeniedForSupportingAgent extends  TransactionName {
+case object AccessDeniedForSupportingAgent extends TransactionName {
   val name = "access-denied-for-supporting-agent"
 }
