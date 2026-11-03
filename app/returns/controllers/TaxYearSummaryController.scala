@@ -76,9 +76,9 @@ class TaxYearSummaryController @Inject()(
 
   // Individual back urls
   private def taxYearsUrl(origin: Option[String]): String = returns.controllers.routes.TaxYearsController.showTaxYears(origin).url
-  
+
   private def whatYouOweUrl(origin: Option[String]): String = appConfig.financialsWhatYouOweUrl(false, origin)
-  
+
   // Agent back urls
   private lazy val agentTaxYearsUrl: String = returns.controllers.routes.TaxYearsController.showAgentTaxYears().url
   private lazy val agentWhatYouOweUrl: MtdItUser[_] => String = user =>
@@ -608,28 +608,27 @@ class TaxYearSummaryController @Inject()(
     }
   }
 
-  private def validateTaxYearRoute(taxYear: Int, origin: Option[String], isAgent: Boolean)
-                                  (implicit user: MtdItUser[_], hc: HeaderCarrier): Future[Result] =
-    if (taxYear.toString.matches("[0-9]{4}")) {
-      handleRequest(taxYear, origin, isAgent)
-    } else {
-      if (isAgent) {
-        logger.error(s"Agent - Invalid tax year: $taxYear")
-        Future(agentItvcErrorHandler.showInternalServerError())
+  private def validateTaxYearRoute(taxYear: Int): Boolean =
+    taxYear.toString.matches("[0-9]{4}")
+
+  def renderTaxYearSummaryPage(taxYear: Int, origin: Option[String] = None): Action[AnyContent] =
+    authActions.asMTDIndividual().async { implicit user =>
+      if (validateTaxYearRoute(taxYear)) {
+        handleRequest(taxYear, origin, false)
       } else {
-        logger.error(s"Invalid tax year: $taxYear")
+        logger.error(s"[renderTaxYearSummaryPage] Invalid tax year: $taxYear")
         Future(itvcErrorHandler.showInternalServerError())
       }
     }
 
-  def renderTaxYearSummaryPage(taxYear: Int, origin: Option[String] = None): Action[AnyContent] =
-    authActions.asMTDIndividual().async { implicit user =>
-      validateTaxYearRoute(taxYear, origin, isAgent = false)
-    }
-
   def renderAgentTaxYearSummaryPage(taxYear: Int): Action[AnyContent] =
     authActions.asMTDPrimaryAgent().async { implicit user =>
-      validateTaxYearRoute(taxYear, None, isAgent = true)
+      if (validateTaxYearRoute(taxYear)) {
+        handleRequest(taxYear, None, true)
+      } else {
+        logger.error(s"[renderAgentTaxYearSummaryPage] Invalid tax year: $taxYear")
+        Future(itvcErrorHandler.showInternalServerError())
+      }
     }
 
 }
