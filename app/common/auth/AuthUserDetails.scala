@@ -47,7 +47,6 @@ case class AuthUserDetails(enrolments: Enrolments,
   lazy val credId = credentials.map(credential => credential.providerId)
 
   val saUtr = getValueFromEnrolment(Constants.saEnrolmentName, Constants.saEnrolmentIdentifierKey)
-  val optNino = getValueFromEnrolment(Constants.ninoEnrolmentName, Constants.ninoEnrolmentIdentifierKey)
   private def getEnrolment(key: String): Option[String] = {
     enrolments.enrolments.find(e => e.key == key && e.identifiers.nonEmpty) map { (enr: Enrolment) => enr.identifiers.head.value }
   }
