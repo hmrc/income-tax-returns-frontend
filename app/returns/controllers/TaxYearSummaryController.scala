@@ -78,7 +78,7 @@ class TaxYearSummaryController @Inject()(
   private def taxYearsUrl(origin: Option[String]): String = returns.controllers.routes.TaxYearsController.showTaxYears(origin).url
 
   private def whatYouOweUrl(origin: Option[String]): String = appConfig.financialsWhatYouOweUrl(false, origin)
-  
+
   // Agent back urls
   private lazy val agentTaxYearsUrl: String = returns.controllers.routes.TaxYearsController.showAgentTaxYears().url
   private lazy val agentWhatYouOweUrl: MtdItUser[_] => String = user =>
@@ -608,19 +608,27 @@ class TaxYearSummaryController @Inject()(
     }
   }
 
+  private def validateTaxYearRoute(taxYear: Int): Boolean =
+    taxYear.toString.matches("[0-9]{4}")
+
   def renderTaxYearSummaryPage(taxYear: Int, origin: Option[String] = None): Action[AnyContent] =
     authActions.asMTDIndividual().async { implicit user =>
-      if (taxYear.toString.matches("[0-9]{4}")) {
-        handleRequest(taxYear, origin, isAgent = false)
+      if (validateTaxYearRoute(taxYear)) {
+        handleRequest(taxYear, origin, false)
       } else {
+        logger.error(s"[renderTaxYearSummaryPage] Invalid tax year: $taxYear")
         Future(itvcErrorHandler.showInternalServerError())
       }
     }
 
   def renderAgentTaxYearSummaryPage(taxYear: Int): Action[AnyContent] =
     authActions.asMTDPrimaryAgent().async { implicit user =>
-      // TODO: restore taxYear validation
-      handleRequest(taxYear, None, isAgent = true)
+      if (validateTaxYearRoute(taxYear)) {
+        handleRequest(taxYear, None, true)
+      } else {
+        logger.error(s"[renderAgentTaxYearSummaryPage] Invalid tax year: $taxYear")
+        Future(agentItvcErrorHandler.showInternalServerError())
+      }
     }
 
 }
