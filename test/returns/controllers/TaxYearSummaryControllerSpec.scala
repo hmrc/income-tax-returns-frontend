@@ -1030,26 +1030,25 @@ class TaxYearSummaryControllerSpec
               status(result) shouldBe Status.INTERNAL_SERVER_ERROR
               contentType(result) shouldBe Some("text/html")
             }
+            
+            "provided with a negative tax year" in {
+              setupMockSuccess(mtdUserRole)
+              mockPropertyIncomeSource()
 
-            if (mtdUserRole == MTDIndividual) {
-              "provided with a negative tax year" in {
-                setupMockSuccess(mtdUserRole)
-                mockPropertyIncomeSource()
+              when(mockTaxYearSummaryService.determineCannotDisplayCalculationContentScenario(any(), any())(any()))
+                .thenReturn(MtdSoftwareShowCalc)
 
-                when(mockTaxYearSummaryService.determineCannotDisplayCalculationContentScenario(any(), any())(any()))
-                  .thenReturn(MtdSoftwareShowCalc)
+              val invalidTaxYearAction =
+                if (isAgent) {
+                  testController.renderAgentTaxYearSummaryPage(-testTaxYear)
+                } else {
+                  testController.renderTaxYearSummaryPage(-testTaxYear)
+                }
 
-                val invalidTaxYearAction =
-                  if (isAgent) {
-                    testController.renderAgentTaxYearSummaryPage(-testTaxYear)
-                  } else {
-                    testController.renderTaxYearSummaryPage(-testTaxYear)
-                  }
-
-                val result = invalidTaxYearAction(fakeRequest)
-                status(result) shouldBe Status.INTERNAL_SERVER_ERROR
-              }
+              val result = invalidTaxYearAction(fakeRequest)
+              status(result) shouldBe Status.INTERNAL_SERVER_ERROR
             }
+
             "the calculation returned from the calculation service was an error" in {
 
               setupMockSuccess(mtdUserRole)
