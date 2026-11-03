@@ -30,7 +30,7 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig, val config
 
   //App
   lazy val basePath: String = servicesConfig.getString("base.context-root")
-  lazy val agentBasePath: String = s"$basePath/agents"
+  private lazy val agentBasePath: String = s"$basePath/agents"
   lazy val baseUrl: String = servicesConfig.getString("base.url")
   lazy val appName: String = servicesConfig.getString("appName")
 
@@ -69,12 +69,12 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig, val config
   lazy val ggSignInUrl: String = servicesConfig.getString("government-gateway.sign-in.url")
 
   //Exit Survey
-  lazy val exitSurveyBaseUrl: String = servicesConfig.getString("feedback-frontend.host") + servicesConfig.getString("feedback-frontend.url")
+  private lazy val exitSurveyBaseUrl: String = servicesConfig.getString("feedback-frontend.host") + servicesConfig.getString("feedback-frontend.url")
 
-  def exitSurveyUrl(identifier: String): String = s"$exitSurveyBaseUrl/$identifier"
+  private def exitSurveyUrl(identifier: String): String = s"$exitSurveyBaseUrl/$identifier"
 
   //Sign out
-  lazy val ggUrl: String = servicesConfig.getString("government-gateway.url")
+  private lazy val ggUrl: String = servicesConfig.getString("government-gateway.url")
 
   def ggSignOutUrl(identifier: String): String = s"$ggUrl/bas-gateway/sign-out-without-state?continue=${exitSurveyUrl(identifier)}"
   //Agent Services Account
@@ -108,10 +108,10 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig, val config
   lazy val agentServicesAccountFrontend: String = servicesConfig.baseUrl("agent-services-account-frontend")
 
   // Service Navigation Links
-  lazy val ptaFrontendBase: String = servicesConfig.getString("personal-tax-account.url")
-  lazy val btaFrontendBase: String = servicesConfig.getString("business-tax-account.url")
-  lazy val helpAndContactBase: String = servicesConfig.getString("help-and-contact-frontend.url")
-  lazy val trackingBase: String = servicesConfig.getString("tracking-frontend.url")
+  private lazy val ptaFrontendBase: String = servicesConfig.getString("personal-tax-account.url")
+  private lazy val btaFrontendBase: String = servicesConfig.getString("business-tax-account.url")
+  private lazy val helpAndContactBase: String = servicesConfig.getString("help-and-contact-frontend.url")
+  private lazy val trackingBase: String = servicesConfig.getString("tracking-frontend.url")
 
   lazy val businessTaxAccountManageAccountUrl: String = s"$btaFrontendBase/manage-account"
   lazy val businessTaxAccountMessagesUrl: String = s"$btaFrontendBase/messages"
@@ -131,14 +131,12 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig, val config
   //Auth variables
   lazy val requiredConfidenceLevel: Int = servicesConfig.getInt("auth.confidenceLevel")
 
-  lazy val ivUrl = servicesConfig.getString("identity-verification-frontend.host")
-  lazy val relativeIVUpliftParams = servicesConfig.getBoolean("identity-verification-frontend.use-relative-params")
+  lazy val ivUrl: String = servicesConfig.getString("identity-verification-frontend.host")
+  lazy val relativeIVUpliftParams: Boolean = servicesConfig.getBoolean("identity-verification-frontend.use-relative-params")
 
   def incomeSourceOverrides(): Option[Seq[String]] = config.getOptional[Seq[String]]("afterIncomeSourceCreated")
 
   def poaAdjustmentOverrides(): Option[Seq[String]] = config.getOptional[Seq[String]]("afterPoaAmountAdjusted")
-
-  def triggeredMigrationOverrides(): Option[Seq[String]] = config.getOptional[Seq[String]]("afterMigration")
   
   lazy val readFeatureSwitchesFromMongo: Boolean = servicesConfig.getBoolean("feature-switches.read-from-mongo")
   
