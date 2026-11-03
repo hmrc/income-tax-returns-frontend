@@ -24,11 +24,8 @@ trait FeatureSwitching {
 
   val appConfig: FrontendAppConfig
 
-  val FEATURE_SWITCH_ON = "true"
-  val FEATURE_SWITCH_OFF = "false"
-
   def isEnabledFromConfig(featureSwitch: FeatureSwitchName): Boolean =
-    appConfig.config.getOptional[String](s"feature-switch.enable-${featureSwitch.name}") contains FEATURE_SWITCH_ON
+    appConfig.config.getOptional[String](s"feature-switch.enable-${featureSwitch.name}") contains "true"
 
   def isEnabled(featureSwitch: FeatureSwitchName)(implicit user: MtdItUser[_]): Boolean = {
     isEnabledMongoOrConfig(featureSwitch, user.featureSwitches)
@@ -39,12 +36,6 @@ trait FeatureSwitching {
       fs.exists(x => x.name.name == featureSwitch.name && x.isEnabled)
     } else {
       isEnabledFromConfig(featureSwitch)
-    }
-  }
-
-  def areAllEnabled(featureSwitches: FeatureSwitchName*): Boolean = {
-    featureSwitches.foldLeft(false) { (_, switch) =>
-      isEnabledFromConfig(switch)
     }
   }
 
