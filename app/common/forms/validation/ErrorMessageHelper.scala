@@ -16,13 +16,11 @@
 
 package common.forms.validation
 
-import common.forms.validation.models.{FieldError, SummaryError}
+import common.forms.validation.models.FieldError
 import play.api.data.{Field, Form, FormError}
 
 
 object ErrorMessageHelper {
-
-  import ErrorMessageFactory.SummaryErrorLoc
 
   @inline private def filterFieldError(errors: Seq[FormError]): Option[FieldError] =
     errors match {
@@ -44,8 +42,4 @@ object ErrorMessageHelper {
       case Some(form) => getFieldError(field, form)
       case _ => getFieldError(field)
     }
-
-  def getSummaryErrors(form: Form[_]): Seq[(String, SummaryError)] =
-    form.errors.map(e => (e.key, e.args(SummaryErrorLoc).asInstanceOf[SummaryError]))
-
 }

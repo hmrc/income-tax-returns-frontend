@@ -24,9 +24,9 @@ trait ExternalRedirectHelper {
   val servicesConfig: ServicesConfig
   val config: Configuration
 
-  lazy val hubBaseUrl: String = servicesConfig.getString("income-tax-view-change-frontend.hubBaseUrl")
+  private lazy val hubBaseUrl: String = servicesConfig.getString("income-tax-view-change-frontend.hubBaseUrl")
 
-  lazy val hubAgentBaseUrl: String = s"$hubBaseUrl/agents"
+  private lazy val hubAgentBaseUrl: String = s"$hubBaseUrl/agents"
 
   lazy val individualHomeUrl: String = s"$hubBaseUrl/income-tax"
 
@@ -47,26 +47,10 @@ trait ExternalRedirectHelper {
 
   lazy val confirmClientUTRUrl: String = s"$hubAgentBaseUrl/confirm-client-details"
 
-  //Obligation routes
-  
-  lazy val obligationsBaseUrl: String = servicesConfig.getString("income-tax-obligations-frontend.baseUrl")
-  lazy val obligationsAgentBaseUrl: String = s"$obligationsBaseUrl/agents"
-  
-  lazy val obligationsWaitToSignUpIndividualUrl: String =
-      s"$obligationsBaseUrl/access-service-from-next-tax-year"
-
-  lazy val obligationsWaitToSignUpAgentUrl: String =
-      s"$obligationsAgentBaseUrl/view-client-from-next-tax-year"
-
   //Business Details routes
 
-  lazy val businessDetailsBaseUrl: String = servicesConfig.getString("income-tax-business-details-frontend.baseUrl")
-  lazy val businessDetailsAgentBaseUrl: String = s"$businessDetailsBaseUrl/agents"
-
-  def triggeredMigrationCheckHMRCRecordsUrl(isAgent: Boolean): String = {
-      val baseUri = if (isAgent) businessDetailsAgentBaseUrl else businessDetailsBaseUrl
-      s"$baseUri/check-your-active-businesses/hmrc-record"
-  }
+  private lazy val businessDetailsBaseUrl: String = servicesConfig.getString("income-tax-business-details-frontend.baseUrl")
+  private lazy val businessDetailsAgentBaseUrl: String = s"$businessDetailsBaseUrl/agents"
 
   def triggeredMigrationCompleteStepsUrl(isAgent: Boolean): String = {
       val baseUri = if (isAgent) businessDetailsAgentBaseUrl else businessDetailsBaseUrl
@@ -75,14 +59,14 @@ trait ExternalRedirectHelper {
 
   //Financials routes
 
-  lazy val financialsBaseUrl: String = servicesConfig.getString("income-tax-financials-frontend.baseUrl")
-  lazy val financialsAgentBaseUrl: String = s"$financialsBaseUrl/agents"
+  private lazy val financialsBaseUrl: String = servicesConfig.getString("income-tax-financials-frontend.baseUrl")
+  private lazy val financialsAgentBaseUrl: String = s"$financialsBaseUrl/agents"
 
-  lazy val financialsWhatYouOweIndividualUrl: Option[String] => String = origin =>
+  private lazy val financialsWhatYouOweIndividualUrl: Option[String] => String = origin =>
     s"$financialsBaseUrl/what-you-owe${origin.fold("")(o => s"?origin=$o")}"
 
 
-  lazy val financialsWhatYouOweAgentUrl: String = s"$financialsAgentBaseUrl/what-you-owe"
+  private lazy val financialsWhatYouOweAgentUrl: String = s"$financialsAgentBaseUrl/what-you-owe"
 
   def financialsWhatYouOweUrl(isAgent: Boolean, origin: Option[String] = None): String =
     if (isAgent)
@@ -117,9 +101,9 @@ trait ExternalRedirectHelper {
       s"$financialsAgentBaseUrl/tax-years/$taxYear/charge$queryPathString"
   }
 
-  lazy val financialsPaymentHistoryIndividualUrl: String = s"$financialsBaseUrl/payment-refund-history"
+  private lazy val financialsPaymentHistoryIndividualUrl: String = s"$financialsBaseUrl/payment-refund-history"
 
-  lazy val financialsPaymentHistoryAgentUrl: String = s"$financialsAgentBaseUrl/payment-refund-history"
+  private lazy val financialsPaymentHistoryAgentUrl: String = s"$financialsAgentBaseUrl/payment-refund-history"
 
   def financialsPaymentHistoryUrl(isAgent: Boolean): String =
     if (isAgent)

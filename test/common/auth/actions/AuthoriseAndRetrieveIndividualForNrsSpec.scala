@@ -28,7 +28,7 @@ import play.api.Application
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.{Result, Results}
 import play.api.test.Helpers.*
-import common.testConstants.BaseTestConstants.{testNino, testRetrievedUserName, testSaUtr}
+import common.testConstants.BaseTestConstants.{testRetrievedUserName, testSaUtr}
 import uk.gov.hmrc.auth.core.AffinityGroup.{Agent, Individual, Organisation}
 import uk.gov.hmrc.auth.core.retrieve.{ItmpAddress, ItmpName, LoginTimes, MdtpInformation}
 import uk.gov.hmrc.auth.core.*
@@ -82,7 +82,6 @@ class AuthoriseAndRetrieveIndividualForNrsSpec extends AuthActionsSpecHelper {
               fakeRequestWithActiveSession,
               defaultAsyncBody{res =>
                 res.authUserDetails.affinityGroup shouldBe Some(affinityGroup)
-                res.authUserDetails.optNino shouldBe Some(testNino)
                 res.authUserDetails.saUtr shouldBe Some(testSaUtr)
                 res.authUserDetails.name shouldBe Some(testRetrievedUserName)
                 res.authUserDetails.internalId shouldBe Some("internalId")
@@ -119,7 +118,6 @@ class AuthoriseAndRetrieveIndividualForNrsSpec extends AuthActionsSpecHelper {
               fakeRequestWithActiveSession,
               defaultAsyncBody{res =>
                 res.authUserDetails.affinityGroup shouldBe Some(affinityGroup)
-                res.authUserDetails.optNino shouldBe None
                 res.authUserDetails.saUtr shouldBe None
                 res.authUserDetails.name shouldBe None
                 res.authUserDetails.internalId shouldBe None
