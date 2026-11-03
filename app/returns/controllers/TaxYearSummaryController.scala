@@ -627,7 +627,7 @@ class TaxYearSummaryController @Inject()(
         handleRequest(taxYear, None, true)
       } else {
         logger.error(s"[renderAgentTaxYearSummaryPage] Invalid tax year: $taxYear")
-        Future(itvcErrorHandler.showInternalServerError())
+        Future(agentItvcErrorHandler.showInternalServerError())
       }
     }
 
