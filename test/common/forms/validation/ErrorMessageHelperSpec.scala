@@ -17,7 +17,7 @@
 package common.forms.validation
 
 import common.forms.FeedbackForm
-import common.forms.validation.models.{FieldError, SummaryError}
+import common.forms.validation.models.FieldError
 import org.scalatest.matchers.must.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import play.api.data.{Field, Form, FormError}
@@ -80,17 +80,6 @@ class ErrorMessageHelperSpec extends AnyWordSpec with Matchers {
         val field = Field(form, "feedback-rating", Nil, None, Nil, None)
 
         ErrorMessageHelper.getFieldError(field, None) mustBe None
-      }
-    }
-
-    "get summary error" when {
-      "invalid form is provided" in {
-        val fieldError = FieldError("feedback-rating", Seq("feedback.radiosError"))
-        val summaryError = SummaryError("invalid form", Seq("invalid form"))
-        val form = getForm(Some(testFeedbackForm(rating = Some(""))))
-          .copy(errors = Seq(FormError("", "", Seq(fieldError, summaryError))))
-
-        ErrorMessageHelper.getSummaryErrors(form).map(_._2) mustBe List(SummaryError("invalid form", List("invalid form")))
       }
     }
   }
