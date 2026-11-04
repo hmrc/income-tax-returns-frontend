@@ -54,6 +54,7 @@ abstract class TaxCalcBreakdownViewBehaviour extends ViewSpec {
   val taxYear2017: Int = 2017
   val taxYear2024: Int = 2024
   val sectionHeadingPPP: String = messages("taxCal_breakdown.pay_pensions_profit")
+  val sectionHeadingProperty: String = messages("taxCal_breakdown.property")
   val sectionHeadingLumpSums: String = messages("taxCal_breakdown.lumpSums")
   val sectionHeadingGainsOnLifePolicies: String = messages("taxCal_breakdown.gains_life_policies")
   val sectionHeadingAdditionalChar: String = messages("taxCal_breakdown.additional_charges")
@@ -260,6 +261,34 @@ abstract class TaxCalcBreakdownViewBehaviour extends ViewSpec {
       }
     }
 
+    "provided with a calculation that has Property tax bands for the Scottish tax regime" should {
+
+      val propertyBands = Seq(
+        TaxBands("BRT", 20.0, 12500, 12500, 20000, 4000.00),
+        TaxBands("HRT", 40.0, 12500, 12500, 100000, 40000.00),
+        TaxBands("ART", 45.0, 12500, 12500, 500000, 22500.00)
+      )
+      val taxDueSummaryViewModel = TaxDueSummaryViewModel(
+        taxRegime = "Scotland",
+        propertyBands = Some(propertyBands)
+      )
+      lazy val view = taxCalcBreakdown(taxDueSummaryViewModel, taxYear2017, backUrl)
+
+      "have a Property table with Top rate instead of Advanced rate" which {
+        shouldHaveACorrectTableContent(view)(
+          tableNumber = 1,
+          expectedCaption = sectionHeadingProperty,
+          expectedTableRows = Table(
+            ("row index", "column 1", "column 2"),
+            (0, messages("taxCal_breakdown.table.head.rates.uk_only"), amountTableHeader),
+            (1, messages("taxCal_breakdown.table.BRT", "£20,000.00", "20.0"), "£4,000.00"),
+            (2, messages("taxCal_breakdown.table.HRT", "£100,000.00", "40.0"), "£40,000.00"),
+            (3, messages("taxCal_breakdown.table.ART_scottish", "£500,000.00", "45.0"), "£22,500.00")
+          )
+        )
+      }
+    }
+
     "provided with a calculation that is with Lump sums table and with all three tax bands including " +
       "top rate displayed " +
       "for the 2017 tax year" should {
@@ -408,6 +437,77 @@ abstract class TaxCalcBreakdownViewBehaviour extends ViewSpec {
   }
 
   "The taxCalc breakdown view with UK tax regime" when {
+
+    "provided with a calculation that has a Pay, pensions and profit table for the 2017 tax year" should {
+
+      val ukBands = Seq(
+        TaxBands("BRT", 20.0, 12500, 12500, 20000, 4000.00),
+        TaxBands("HRT", 40.0, 12500, 12500, 100000, 40000.00),
+        TaxBands("ART", 45.0, 12500, 12500, 50000, 22500.00)
+      )
+      val taxDueSummaryViewModel = TaxDueSummaryViewModel(
+        taxRegime = "Uk",
+        payPensionsProfitBands = Some(ukBands)
+      )
+      lazy val view = taxCalcBreakdown(taxDueSummaryViewModel, taxYear2017, backUrl)
+
+      "have a Pay, pensions and profit table" which {
+        shouldHaveACorrectTableContent(view)(
+          tableNumber = 1,
+          expectedCaption = sectionHeadingPPP,
+          expectedTableRows = Table(
+            ("row index", "column 1", "column 2"),
+            (0, messages("taxCal_breakdown.table.head.rates.uk"), amountTableHeader),
+            (1, messages("taxCal_breakdown.table.BRT", "£20,000.00", "20.0"), "£4,000.00"),
+            (2, messages("taxCal_breakdown.table.HRT", "£100,000.00", "40.0"), "£40,000.00"),
+            (3, messages("taxCal_breakdown.table.ART", "£50,000.00", "45.0"), "£22,500.00")
+          )
+        )
+      }
+    }
+
+    "provided with a calculation that has a Property table alongside Pay, pensions and profit for the 2017 tax year" should {
+
+      val ukBands = Seq(
+        TaxBands("BRT", 20.0, 12500, 12500, 20000, 4000.00),
+        TaxBands("HRT", 40.0, 12500, 12500, 100000, 40000.00),
+        TaxBands("ART", 45.0, 12500, 12500, 50000, 22500.00)
+      )
+      val taxDueSummaryViewModel = TaxDueSummaryViewModel(
+        taxRegime = "Uk",
+        payPensionsProfitBands = Some(ukBands),
+        propertyBands = Some(ukBands)
+      )
+      lazy val view = taxCalcBreakdown(taxDueSummaryViewModel, taxYear2017, backUrl)
+
+      "have a Property table directly below the Pay, pensions and profit table" which {
+        "has the Property caption as the second table" in new Setup(view) {
+          val captions = pageContent(pageContentSelector).select("caption")
+          captions.get(0).text shouldBe sectionHeadingPPP
+          captions.get(1).text shouldBe sectionHeadingProperty
+        }
+
+        shouldHaveACorrectTableContent(view)(
+          tableNumber = 2,
+          expectedCaption = sectionHeadingProperty,
+          expectedTableRows = Table(
+            ("row index", "column 1", "column 2"),
+            (0, messages("taxCal_breakdown.table.head.rates.uk_only"), amountTableHeader),
+            (1, messages("taxCal_breakdown.table.BRT", "£20,000.00", "20.0"), "£4,000.00"),
+            (2, messages("taxCal_breakdown.table.HRT", "£100,000.00", "40.0"), "£40,000.00"),
+            (3, messages("taxCal_breakdown.table.ART", "£50,000.00", "45.0"), "£22,500.00")
+          )
+        )
+      }
+    }
+
+    "provided with a calculation without Property bands" should {
+      lazy val view = taxCalcBreakdown(TaxDueSummaryViewModel(taxRegime = "Uk"), taxYear2017, backUrl)
+
+      "have no Property table" in new Setup(view) {
+        pageContent(pageContentSelector).select("caption").text should not include sectionHeadingProperty
+      }
+    }
 
     "provided with a calculation that is without Pay, pensions and profit, without Savings, without Dividends, " +
       "without Additional charges and without Additional deductions sections but has total tax due amount display " +

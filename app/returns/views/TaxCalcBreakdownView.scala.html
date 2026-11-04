@@ -337,6 +337,26 @@
     }.toSeq
 }
 
+@propertyTableHead = @{
+    Some(Seq(
+        HeadCell(
+            content = Text(messages(s"taxCal_breakdown.table.head.rates.uk_only")),
+            classes = "bold"
+        ),
+        HeadCell(
+            content = Text(messages("taxCal_breakdown.table.amount")),
+            classes = "govuk-table__header--numeric bold"
+        )
+    ))
+}
+
+@propertyTableRows = @{
+    taxBandRows(
+        viewModel.propertyBands.getOrElse(Seq()).filter(_.income > 0).sortBy(_.rate),
+        viewModel.taxRegime.contains("Scotland")
+    )
+}
+
 @savingsTableHead = @{
     Some(Seq(
         HeadCell(
@@ -547,6 +567,16 @@
             caption = Some(messages("taxCal_breakdown.pay_pensions_profit")),
             captionClasses = "govuk-heading-l govuk-!-margin-bottom-0",
             attributes = Map("id" -> "pay-pensions-profit-table")
+        ))
+    }
+
+    @if(viewModel.propertyBands.getOrElse(Seq()).exists(_.income > 0)) {
+        @govukTable(Table(
+            head = propertyTableHead,
+            rows = propertyTableRows,
+            caption = Some(messages("taxCal_breakdown.property")),
+            captionClasses = "govuk-heading-l",
+            attributes = Map("id" -> "property-table")
         ))
     }
 

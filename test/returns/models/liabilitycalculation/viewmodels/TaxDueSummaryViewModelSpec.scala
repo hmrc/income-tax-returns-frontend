@@ -19,7 +19,7 @@ package returns.models.liabilitycalculation.viewmodels
 import common.exceptions.MissingFieldException
 import common.models.helpers.LiabilityCalculationDataHelper
 import common.models.liabilitycalculation.*
-import common.models.liabilitycalculation.taxcalculation.{BusinessAssetsDisposalsAndInvestorsRel, CgtTaxBands, Nic4Bands, TaxBands}
+import common.models.liabilitycalculation.taxcalculation.{BusinessAssetsDisposalsAndInvestorsRel, CgtTaxBands, Nic4Bands, Property, TaxBands}
 import common.testConstants.IncomeSourceAddedControllerConstants.testObligationsModel
 import org.scalatest.OptionValues
 import org.scalatest.concurrent.ScalaFutures
@@ -57,6 +57,17 @@ class TaxDueSummaryViewModelSpec extends AnyWordSpec with Matchers with OptionVa
       }
     }
     
+    "map property tax bands from the calculation" in {
+      val bands = Seq(TaxBands("BRT", 20, 12500, 12500, 12500, BigDecimal("5000.99")))
+      val calc = liabilityCalculationModelSuccessfulConversionPB
+      val calcWithProperty = calc.copy(calculation = calc.calculation.map(c =>
+        c.copy(taxCalculation = c.taxCalculation.map(tc =>
+          tc.copy(incomeTax = tc.incomeTax.copy(property = Some(Property(Some(bands)))))))))
+
+      TaxDueSummaryViewModel(calcWithProperty, testObligationsModel).propertyBands shouldBe Some(bands)
+      TaxDueSummaryViewModel(calc, testObligationsModel).propertyBands shouldBe None
+    }
+
     "create a minimal TaxDueSummaryViewModel when there is a minimal Calculation response" in {
       TaxDueSummaryViewModel(liabilityCalculationModelDeductionsMinimal(), testObligationsModel) shouldBe
         TaxDueSummaryViewModel(
