@@ -280,7 +280,7 @@ abstract class TaxCalcBreakdownViewBehaviour extends ViewSpec {
           expectedCaption = sectionHeadingProperty,
           expectedTableRows = Table(
             ("row index", "column 1", "column 2"),
-            (0, messages("taxCal_breakdown.table.head.rates.uk_only"), amountTableHeader),
+            (0, messages("taxCal_breakdown.table.head.rates.scotland"), amountTableHeader),
             (1, messages("taxCal_breakdown.table.BRT", "£20,000.00", "20.0"), "£4,000.00"),
             (2, messages("taxCal_breakdown.table.HRT", "£100,000.00", "40.0"), "£40,000.00"),
             (3, messages("taxCal_breakdown.table.ART_scottish", "£500,000.00", "45.0"), "£22,500.00")
@@ -492,7 +492,7 @@ abstract class TaxCalcBreakdownViewBehaviour extends ViewSpec {
           expectedCaption = sectionHeadingProperty,
           expectedTableRows = Table(
             ("row index", "column 1", "column 2"),
-            (0, messages("taxCal_breakdown.table.head.rates.uk_only"), amountTableHeader),
+            (0, messages("taxCal_breakdown.table.head.rates.uk"), amountTableHeader),
             (1, messages("taxCal_breakdown.table.BRT", "£20,000.00", "20.0"), "£4,000.00"),
             (2, messages("taxCal_breakdown.table.HRT", "£100,000.00", "40.0"), "£40,000.00"),
             (3, messages("taxCal_breakdown.table.ART", "£50,000.00", "45.0"), "£22,500.00")

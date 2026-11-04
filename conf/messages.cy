@@ -947,7 +947,6 @@ taxCal_breakdown.table.head.reduction                           = Gostyngiad
 taxCal_breakdown.table.head.rate_band                           = Haen cyfradd
 taxCal_breakdown.table.head.cgt_type                            = Math o Dreth Enillion Cyfalaf
 taxCal_breakdown.table.head.national_insurance_type             = Math o Yswiriant Gwladol
-taxCal_breakdown.table.head.rates.uk_only                       = Cyfraddau’r DU
 taxCal_breakdown.table.head.rates.uk                            = Cyfradd y DU ar gyfer Lloegr a Gogledd Iwerddon
 taxCal_breakdown.table.head.rates.scotland                      = Cyfradd ar gyfer yr Alban
 taxCal_breakdown.table.head.deducted                            = Treth a ddidynnwyd o incwm arall

@@ -340,7 +340,7 @@
 @propertyTableHead = @{
     Some(Seq(
         HeadCell(
-            content = Text(messages(s"taxCal_breakdown.table.head.rates.uk_only")),
+            content = Text(messages(s"taxCal_breakdown.table.head.rates${viewModel.getRateHeaderKey}")),
             classes = "bold"
         ),
         HeadCell(
