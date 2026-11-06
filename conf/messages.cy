@@ -909,6 +909,7 @@ taxCal_breakdown.heading                                            = Cyfrifiad 
 taxCal_breakdown.dates                                              = 6 Ebrill {0} hyd at 5 Ebrill {1}
 taxCal_breakdown.explanation                                        = Mae’r cyfrifiad hwn yn seiliedig ar eich incwm trethadwy o
 taxCal_breakdown.pay_pensions_profit                                = Cyflog, pensiynau ac elw
+taxCal_breakdown.property                                           = Eiddo
 taxCal_breakdown.savings                                            = Cynilion
 taxCal_breakdown.dividends                                          = Difidendau
 taxCal_breakdown.lumpSums                                           = Cyfandaliadau cyflogaeth
