@@ -3775,3 +3775,13 @@ triggered-migration.completeSteps.p2                                            
 triggered-migration.completeSteps.ul.li1                                                   = confirm your income sources
 triggered-migration.completeSteps.ul.li2                                                   = get compatible software
 triggered-migration.completeSteps.ul.li3                                                   = send your most recent quarterly update
+
+# PDF keys
+label.alt.hmrc_logo=HMRC logo
+label.hm_revenue_and_customs=HM Revenue and Customs
+label.hm_revenue_customs_ni_print.revenue=HM Revenue
+label.hm_revenue_customs_ni_print.customs=&amp; Customs
+label.hm_revenue_customs_ni_print.revenue.pdf=HM Revenue
+label.hm_revenue_customs_ni_print.customs.pdf=& Customs
+
+label.your_tax_calculation_letter=Your tax calculation letter

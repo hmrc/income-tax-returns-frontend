@@ -22,6 +22,7 @@
 @import returns.views.html.partials.taxcalcbreakdown.{TableRow => TaxCalcTableRow}
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import common.views.html.components._
+@import common.config.FrontendAppConfig
 
 
 @this(
@@ -31,7 +32,7 @@
         capitalGainsTaxTable: CapitalGainsTaxTableNew,
         govukInsetText: GovukInsetText,
         govukTable: GovukTable
-)
+)(implicit val frontendAppConfig: FrontendAppConfig)
 @(viewModel: TaxDueSummaryViewModel, taxYear: Int, startAVRTYear: Int, backUrl: String, isAgent: Boolean = false, serviceNavigationPartial: Option[ServiceNavigation] = None)(implicit request: Request[_], messages: Messages)
 
 @taxBandTableRow(band: TaxBands, scottishRegime: Boolean = false, startAVRTYear: Int) = {
@@ -682,4 +683,11 @@
                 classes = "govuk-table__header govuk-table__header--numeric total-section-with-spacing"),
         ))
     ))
+
+<a class="govuk-link govuk-link--no-visited-state"
+   href="/manage-self-assessment/calculations/print-letter/save-letter-as-pdf"
+   data-journey-click="save - click:Your National Insurance letter:@{messages("label.save_as_a_PDF")}">
+Save as a PDF
+</a>
+<br><br>
 }

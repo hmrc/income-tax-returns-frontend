@@ -3758,3 +3758,13 @@ triggered-migration.completeSteps.p2                                            
 triggered-migration.completeSteps.ul.li1                                                   = cadarnhau eich ffynonellau incwm
 triggered-migration.completeSteps.ul.li2                                                   = cael meddalwedd sy’n cydweddu
 triggered-migration.completeSteps.ul.li3                                                   = anfon eich diweddariad chwarterol mwyaf diweddar
+
+# PDF keys
+label.alt.hmrc_logo=HMRC logo
+label.hm_revenue_and_customs=HM Revenue and Customs
+label.hm_revenue_customs_ni_print.revenue=HM Revenue
+label.hm_revenue_customs_ni_print.customs=&amp; Customs
+label.hm_revenue_customs_ni_print.revenue.pdf=HM Revenue
+label.hm_revenue_customs_ni_print.customs.pdf=& Customs
+
+label.your_tax_calculation_letter=Your tax calculation letter

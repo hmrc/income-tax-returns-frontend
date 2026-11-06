@@ -1,0 +1,144 @@
+
+
+        @this()
+
+        @(lang: String)(implicit messages: Messages)
+
+        <!-- example for a simple fo file. At the beginning the page layout is set.
+          Below fo:root there is always
+        - a single fo:layout-master-set which defines one or more page layouts
+        - an optional fo:declarations
+        - and a sequence of one or more fo:page-sequences containing the text and formatting instructions
+        -->
+
+<fo:root
+        xmlns:fo="http://www.w3.org/1999/XSL/Format"
+        xmlns:fox="http://xmlgraphics.apache.org/fop/extensions"
+        font-family="OpenSans"
+        font-size="10.5pt"
+        line-height="12pt"
+        xml:lang="@lang"
+>
+
+    <fo:layout-master-set>
+        <!-- fo:layout-master-set defines in its children the page layout:
+             the pagination and layout specifications
+            - page-masters: have the role of describing the intended subdivisions
+                             of a page and the geometry of these subdivisions
+                            In this case there is only a simple-page-master which defines the
+                            layout for all pages of the text
+        -->
+
+        <!-- layout for the first page -->
+        <fo:simple-page-master master-name="first"
+                               page-height="29.7cm"
+                               page-width="21cm"
+                               margin-top="0.5cm"
+                               margin-bottom="0.5cm"
+                               margin-left="2.2cm"
+                               margin-right="2.2cm">
+            <fo:region-body margin-top="0.7cm"/>
+            <fo:region-before extent="0.5cm"/>
+            <fo:region-after extent="0.6cm"/>
+        </fo:simple-page-master>
+
+        <!-- layout for the other pages -->
+        <fo:simple-page-master master-name="rest"
+                               page-height="29.7cm"
+                               page-width="21cm"
+                               margin-top="0.5cm"
+                               margin-bottom="0.5cm"
+                               margin-left="2.2cm"
+                               margin-right="2.2cm">
+            <fo:region-body margin-top="0.5cm"/>
+            <fo:region-before extent="0.5cm"/>
+            <fo:region-after extent="0.6cm"/>
+        </fo:simple-page-master>
+
+        <fo:page-sequence-master master-name="basicPSM">
+            <fo:repeatable-page-master-alternatives>
+                <fo:conditional-page-master-reference master-reference="first"
+                                                      page-position="first"/>
+                <fo:conditional-page-master-reference master-reference="rest"
+                                                      page-position="rest"/>
+                <!-- recommended fallback procedure -->
+                <fo:conditional-page-master-reference master-reference="rest"/>
+            </fo:repeatable-page-master-alternatives>
+        </fo:page-sequence-master>
+
+    </fo:layout-master-set>
+    <!-- end: defines page layout -->
+
+    <!-- Document metadata -->
+    <fo:declarations>
+        <x:xmpmeta xmlns:x="adobe:ns:meta/">
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <rdf:Description xmlns:dc="http://purl.org/dc/elements/1.1/">
+                    <dc:title>
+                        @Messages("label.your_tax_calculation_letter")
+                    </dc:title>
+                </rdf:Description>
+            </rdf:RDF>
+        </x:xmpmeta>
+    </fo:declarations>
+    <!-- end Document metadata -->
+
+    <fo:bookmark-tree>
+        <fo:bookmark internal-destination="heading-h1-1">
+            <fo:bookmark-title>@Messages("label.your_tax_calculation_letter")</fo:bookmark-title>
+            <fo:bookmark internal-destination="heading-h1-1-h2-1">
+                <fo:bookmark-title>@messages("your_tax_calculation_letter")</fo:bookmark-title>
+            </fo:bookmark>
+        </fo:bookmark>
+    </fo:bookmark-tree>
+
+    <!-- start page-sequence
+         here comes the text (contained in flow objects)
+         the page-sequence can contain different fo:flows
+         the attribute value of master-name refers to the page layout
+         which is to be used to layout the text contained in this
+         page-sequence-->
+    <fo:page-sequence master-reference="basicPSM">
+
+        <!-- footer -->
+        <fo:static-content role="artifact" flow-name="xsl-region-after">
+            <fo:block font-size="9pt"
+                      line-height="14pt">
+                <!-- date -->
+                <fo:block text-align="end">
+                    Hello there
+                </fo:block>
+            </fo:block>
+        </fo:static-content>
+        <!-- end footer -->
+        <fo:flow flow-name="xsl-region-body">
+
+            <!-- logo and heading -->
+            <fo:block role="Div" space-after="-3px">
+                <fo:inline-container role="Div" inline-progression-dimension="23%">
+                    <fo:block role="Div"
+                              border-left-style="solid"
+                              border-width="1.5px"
+                              border-color="#28a197"
+                              padding-start="4px">
+                        <fo:external-graphic src="url('file:pdf/logo/hmrc.pdf')"
+                                                 content-height="scale-to-fit"
+                                                 content-width="0.8cm"
+                                                 role="Artifact"
+                                                 fox:alt-text="@Messages("label.alt.hmrc_logo")"
+                            />
+                        <fo:block role="P"
+                                  line-height="14pt"
+                                  font-size="14pt"
+                                  padding-before="-14px"
+                                  linefeed-treatment="preserve">
+                            @Messages("label.hm_revenue_customs_ni_print.revenue.pdf")
+                            @Messages("label.hm_revenue_customs_ni_print.customs.pdf")
+                        </fo:block>
+                    </fo:block>
+                </fo:inline-container>
+            </fo:block>
+            <!-- end logo and heading -->
+        </fo:flow> <!-- closes the flow element-->
+    </fo:page-sequence> <!-- closes the page-sequence -->
+</fo:root>

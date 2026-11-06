@@ -31,12 +31,20 @@ import play.api.mvc.*
 import returns.models.audit.TaxDueResponseAuditModel
 import returns.models.liabilitycalculation.viewmodels.TaxDueSummaryViewModel
 import returns.services.CalculationService
+import returns.services.FopService
 import returns.utils.TaxCalcFallBackBackLink
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import uk.gov.hmrc.play.language.LanguageUtils
 import returns.views.html.TaxCalcBreakdownView
+import returns.views.xml.TaxSummaryPdf
 import shared.connectors.ObligationsConnector
+import returns.utils.XSLScalaBridge
+
+//import java.time.LocalDate
+//import java.time.format.DateTimeFormatter
+import org.apache.xmlgraphics.util.MimeConstants
+import play.api.i18n.Messages
 
 import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
@@ -48,7 +56,9 @@ class TaxDueSummaryController @Inject()(val authActions: AuthActions,
                                         val itvcErrorHandlerAgent: AgentItvcErrorHandler,
                                         val obligationsConnector: ObligationsConnector,
                                         val taxCalcBreakdown: TaxCalcBreakdownView,
-                                        val auditingService: AuditingService)
+                                        val auditingService: AuditingService,
+                                        val pdfTemplate: TaxSummaryPdf,
+                                        val fopService: FopService)
                                        (implicit val appConfig: FrontendAppConfig,
                                         val languageUtils: LanguageUtils,
                                         mcc: MessagesControllerComponents,
@@ -120,4 +130,35 @@ class TaxDueSummaryController @Inject()(val authActions: AuthActions,
         previousCalculation = previousCalculation
       )
   }
+
+  private def createPDF(
+                         userRequestNew: MtdItUser[AnyContent]
+                       ): Future[Array[Byte]] = {
+//    implicit val messages: Any = m.messages.preferred(userRequestNew.request)
+    implicit val messages: Messages = mcc.messagesApi.preferred(userRequestNew)
+
+
+//    val date: String = LocalDate.now.format(DateTimeFormatter.ofPattern("MM/YY"))
+
+    fopService.render(pdfTemplate(XSLScalaBridge(messages).getLang()).body)
+  }
+  
+  def saveTaxCalculationAsPdf: Action[AnyContent] =
+    authActions.asMTDIndividual().async { implicit userRequestNew =>
+      val filename = "Your tax calculation letter"
+//        messagesApi.preferred(userRequestNew.request).messages("label.your_tax_calculation_letter")
+
+//      auditNinoLetter("DownloadNinoLetter", userRequestNew.individualDetails, hc)
+      createPDF(userRequestNew).flatMap(pdf =>
+        Future.successful(
+          Ok(pdf)
+            .as(MimeConstants.MIME_PDF)
+            .withHeaders(
+              CONTENT_DISPOSITION -> s"attachment; filename=${filename.replaceAll(" ", "-")}.pdf"
+            )
+        )
+      )
+    }
+  
+  
 }

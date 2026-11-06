@@ -8,6 +8,8 @@ GET         /agents/:taxYear/income                                       return
 
 #Tax Due
 GET         /:taxYear/tax-calculation                                     returns.controllers.TaxDueSummaryController.showTaxDueSummary(taxYear: Int, origin: Option[String] ?= None, previousCalculation: Boolean ?= false)
+GET         /print-letter/save-letter-as-pdf                              returns.controllers.TaxDueSummaryController.saveTaxCalculationAsPdf()
+
 
 #Agents Tax Due
 GET         /agents/:taxYear/tax-calculation                              returns.controllers.TaxDueSummaryController.showTaxDueSummaryAgent(taxYear: Int,previousCalculation: Boolean ?= false)

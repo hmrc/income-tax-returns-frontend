@@ -21,10 +21,13 @@ import common.auth.FrontendAuthorisedFunctions
 import uk.gov.hmrc.auth.core.AuthorisedFunctions
 
 import java.time.{Clock, ZoneOffset}
+import returns.utils.{BaseResourceStreamResolver, DefaultFopURIResolver, DefaultResourceStreamResolver, FopURIResolver}
 
 class DIModule extends AbstractModule {
   override def configure(): Unit = {
     bind(classOf[AuthorisedFunctions]).to(classOf[FrontendAuthorisedFunctions]).asEagerSingleton()
     bind(classOf[Clock]).toInstance(Clock.systemDefaultZone.withZone(ZoneOffset.UTC))
+    bind(classOf[FopURIResolver]).to(classOf[DefaultFopURIResolver])
+    bind(classOf[BaseResourceStreamResolver]).to(classOf[DefaultResourceStreamResolver])
   }
 }

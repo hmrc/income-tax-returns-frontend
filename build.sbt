@@ -31,10 +31,13 @@ val compile = Seq(
   ws,
   "uk.gov.hmrc"   %% s"bootstrap-frontend-$playVersion" % bootstrapPlayVersion,
   "uk.gov.hmrc"   %% s"play-partials-$playVersion"      % playPartialsVersion,
+  "org.apache.xmlgraphics"        % "fop"                                         % "2.11",
+  "org.apache.xmlgraphics"        % "fop-pdf-images"                              % "2.11",
   "org.typelevel" %% "cats-core"                        % catsVersion,
   "uk.gov.hmrc"   %% s"play-frontend-hmrc-$playVersion" % playFrontendHMRCVersion,
   "uk.gov.hmrc"   %% s"crypto-json-$playVersion"        % cryptoJsonVersion,
   "org.jsoup"      % "jsoup"                            % jsoupVersion,
+  "com.fasterxml.jackson.module" %% "jackson-module-scala"                        % "2.21.2"
 )
 
 def test(scope: String = "test"): Seq[ModuleID] = Seq(
