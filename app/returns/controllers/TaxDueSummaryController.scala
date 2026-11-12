@@ -140,7 +140,9 @@ class TaxDueSummaryController @Inject()(val authActions: AuthActions,
 
 //    val date: String = LocalDate.now.format(DateTimeFormatter.ofPattern("MM/YY"))
 
-    fopService.render(pdfTemplate(XSLScalaBridge(messages).getLang()).body)
+    val listOfNames: Seq[(String,String)] = Seq(("John Smith", "35"), ("Jane Doe", "40"), ("Bob Johnson", "50"))  
+    
+    fopService.render(pdfTemplate("1234567890",listOfNames, XSLScalaBridge(messages).getLang()).body)
   }
   
   def saveTaxCalculationAsPdf: Action[AnyContent] =

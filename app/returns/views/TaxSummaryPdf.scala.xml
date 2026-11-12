@@ -2,7 +2,7 @@
 
         @this()
 
-        @(lang: String)(implicit messages: Messages)
+        @(utr: String, listOfNames: Seq[(String,String)], lang: String)(implicit messages: Messages)
 
         <!-- example for a simple fo file. At the beginning the page layout is set.
           Below fo:root there is always
@@ -139,6 +139,195 @@
                 </fo:inline-container>
             </fo:block>
             <!-- end logo and heading -->
+<!--main text  -->
+            <fo:block padding-after="6px"
+                      padding-before="6px">
+                @utr
+            </fo:block>
+
+            <fo:block padding-after="6px"
+                      padding-before="6px">
+                @Messages("label.your_tax_calculation_letter")
+
+            </fo:block>
+
+            @for((firstName, lastName) <- listOfNames) {
+            <fo:block>
+                @firstName
+                @lastName
+            </fo:block>
+            }
+
+            @for(name <- listOfNames) {
+            <fo:block>
+                @name
+            </fo:block>
+            }
+
+            @for((firstName, lastName) <- listOfNames) {
+            <fo:block>
+                @firstName
+            </fo:block>
+            <fo:block>
+                @lastName
+            </fo:block>
+            }
+
+            <fo:block role="H1"
+                      font-family="OpenSans-Bold"
+                      font-weight="bold"
+                      padding-after="200px"
+                      padding-before="12px">
+                @Messages("label.your_tax_calculation_letter")
+
+            </fo:block><fo:block role="H1"
+                      font-family="OpenSans-Bold"
+                      font-weight="bold"
+                      padding-after="200px"
+                      padding-before="12px">
+                @Messages("label.your_tax_calculation_letter")
+
+            </fo:block><fo:block role="H1"
+                      font-family="OpenSans-Bold"
+                      font-weight="bold"
+                      padding-after="200px"
+                      padding-before="12px">
+                @Messages("label.your_tax_calculation_letter")
+
+            </fo:block>
+
+
+
+            <fo:block role="H1"
+                      font-family="OpenSans-Bold"
+                      font-weight="bold"
+                      padding-after="6px"
+                      padding-before="12px"
+                      keep-with-next.within-page="always">
+                Important information
+                @Messages("label.your_tax_calculation_letter")
+
+            </fo:block>
+
+
+            <fo:table table-layout="fixed" width="100%">
+
+                <fo:table-column column-width="50%"/>
+                <fo:table-column column-width="50%"/>
+
+                <fo:table-header>
+                    <fo:table-row>
+                        <fo:table-cell border="1pt solid black" padding="5pt">
+                            <fo:block font-weight="bold">
+                                First name
+                            </fo:block>
+                        </fo:table-cell>
+
+                        <fo:table-cell border="1pt solid black" padding="5pt">
+                            <fo:block font-weight="bold">
+                                Last name
+                            </fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+                </fo:table-header>
+
+                <fo:table-body>
+
+                    @for((firstName, lastName) <- listOfNames) {
+                    <fo:table-row>
+                        <fo:table-cell border="1pt solid black" padding="5pt">
+                            <fo:block>
+                                @firstName
+                            </fo:block>
+                        </fo:table-cell>
+
+                        <fo:table-cell border="1pt solid black" padding="5pt">
+                            <fo:block>
+                                @lastName
+                            </fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+                    }
+
+                </fo:table-body>
+
+            </fo:table>
+
+
+            @for((firstName, lastName) <- listOfNames) {
+            <fo:block
+                    border-bottom="1pt solid black"
+                    padding-bottom="4pt"
+                    padding-top="4pt">
+                @firstName @lastName
+            </fo:block>
+            }
+
+
+
+            <fo:table table-layout="fixed" width="100%">
+                <fo:table-column column-width="50%"/>
+                <fo:table-column column-width="50%"/>
+
+                <fo:table-body>
+                    @for((firstName, lastName) <- listOfNames) {
+                    <fo:table-row
+                            border-bottom="0.5pt solid #BFBFBF">
+
+                        <fo:table-cell
+                                padding-right="10pt"
+                                padding-top="6pt"
+                                padding-bottom="6pt">
+                            <fo:block>
+                                @firstName
+                            </fo:block>
+                        </fo:table-cell>
+
+                        <fo:table-cell
+                                padding-left="10pt"
+                                padding-top="6pt"
+                                padding-bottom="6pt">
+                            <fo:block>
+                                @lastName
+                            </fo:block>
+                        </fo:table-cell>
+
+                    </fo:table-row>
+                    }
+                </fo:table-body>
+            </fo:table>
+
+
+            <fo:table table-layout="fixed" width="100%">
+                <fo:table-column column-width="45pt"/>
+                <fo:table-column column-width="proportional-column-width(1)"/>
+
+                <fo:table-body>
+                    <fo:table-row>
+
+                        <fo:table-cell display-align="center">
+                            <fo:block>
+                                <fo:external-graphic
+                                        src="url('file:pdf/logo/warning-icon.png')"
+                                        content-width="35pt"
+                                        content-height="35pt"
+                                        scaling="uniform"/>
+                            </fo:block>
+                        </fo:table-cell>
+
+                        <fo:table-cell display-align="center">
+                            <fo:block font-weight="bold">
+                                This is showing a warning
+                            </fo:block>
+                        </fo:table-cell>
+
+                    </fo:table-row>
+                </fo:table-body>
+            </fo:table>
+
+<!--            end of main text -->
+
+
         </fo:flow> <!-- closes the flow element-->
     </fo:page-sequence> <!-- closes the page-sequence -->
 </fo:root>
