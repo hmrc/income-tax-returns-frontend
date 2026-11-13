@@ -15,7 +15,6 @@ Feature switch info: https://confluence.tools.tax.service.gov.uk/pages/viewpage.
 
 Requirements
 ------------
-
 This service is written in [Scala](http://www.scala-lang.org/) and [Play](http://playframework.com/), so needs at least a [JRE] to run.
 
 ## Compiling the application
