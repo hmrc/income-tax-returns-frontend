@@ -1,8 +1,8 @@
-
+        @import returns.models.liabilitycalculation.viewmodels.TaxDueSummaryViewModel
 
         @this()
 
-        @(utr: String, listOfNames: Seq[(String,String)], lang: String)(implicit messages: Messages)
+        @(viewModel: TaxDueSummaryViewModel, utr: String, listOfNames: Seq[(String,String)], lang: String)(implicit messages: Messages)
 
         <!-- example for a simple fo file. At the beginning the page layout is set.
           Below fo:root there is always
@@ -68,6 +68,9 @@
 
     </fo:layout-master-set>
     <!-- end: defines page layout -->
+
+
+
 
     <!-- Document metadata -->
     <fo:declarations>
@@ -324,6 +327,7 @@
                     </fo:table-row>
                 </fo:table-body>
             </fo:table>
+
 
 <!--            end of main text -->
 

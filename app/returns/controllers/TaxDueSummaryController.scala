@@ -131,35 +131,88 @@ class TaxDueSummaryController @Inject()(val authActions: AuthActions,
       )
   }
 
+  def handlePDFRequest(itcvErrorHandler: ShowInternalServerError,
+                      taxYear: Int,
+                      )
+                   (implicit user: MtdItUser[_], hc: HeaderCarrier): Future[Result] = {
+
+    val result = for {
+      liabilityCalc <- calculationService.getCalculationDetailsWithFlag(user.mtditid, user.nino, taxYear, isPrevious = false)
+      taxYearModel = TaxYear.makeTaxYearWithEndYear(taxYear)
+      obligations <- obligationsConnector.getAllObligationsDateRange(taxYearModel.toFinancialYearStart, taxYearModel.toFinancialYearEnd)
+    } yield (liabilityCalc, obligations) match {
+      case (calcErrorResponse: LiabilityCalculationError, _) if calcErrorResponse.status == NO_CONTENT =>
+        logger.info("No calculation data returned from downstream. Not Found.")
+        Future.successful(itvcErrorHandler.showInternalServerError())
+      case (_: LiabilityCalculationError, _) =>
+        logger.error(s"taxYear: $taxYear, No new calc deductions data error found. Downstream error")
+        Future.successful(itvcErrorHandler.showInternalServerError())
+      case (_, _: ObligationsErrorModel) =>
+        logger.error(s"taxYear: $taxYear, Failed to retrieve obligations. Downstream error")
+        Future.successful(itvcErrorHandler.showInternalServerError())
+      case (liabilityCalc: LiabilityCalculationResponse, obligations: ObligationsModel) =>
+
+        val viewModel = TaxDueSummaryViewModel(liabilityCalc, obligations)
+        val filename = "Your tax calculation letter"
+
+        createPDF(user,viewModel).flatMap(pdf =>
+          Future.successful(
+            Ok(pdf)
+              .as(MimeConstants.MIME_PDF)
+              .withHeaders(
+                CONTENT_DISPOSITION -> s"attachment; filename=${filename.replaceAll(" ", "-")}.pdf"
+              )
+          )
+        )
+    }
+    
+    result.flatten
+  }
+
   private def createPDF(
-                         userRequestNew: MtdItUser[AnyContent]
+                         user: MtdItUser[_],
+                         viewModel: TaxDueSummaryViewModel
                        ): Future[Array[Byte]] = {
 //    implicit val messages: Any = m.messages.preferred(userRequestNew.request)
-    implicit val messages: Messages = mcc.messagesApi.preferred(userRequestNew)
+    implicit val messages: Messages = mcc.messagesApi.preferred(user)
 
 
 //    val date: String = LocalDate.now.format(DateTimeFormatter.ofPattern("MM/YY"))
 
-    val listOfNames: Seq[(String,String)] = Seq(("John Smith", "35"), ("Jane Doe", "40"), ("Bob Johnson", "50"))  
+    val listOfNames: Seq[(String,String)] = Seq(("John Smith", "35"), ("Jane Doe", "40"), ("Bob Johnson", "50"))
+//    val listOfNames: Seq[(String,String)] = {
+//      viewModel.transitionProfitRow.map {
+//        case TransitionProfitRow(tax, profit) =>
+//          (messages("taxCal_breakdown.table.transitional_profit", profit.toCurrencyString), tax.toCurrencyString)
+//      }.toSeq
+//      
+//    }
+//    import shared.implicits.ImplicitCurrencyFormatter.CurrencyFormatter
+//    val listOfNames: Seq[(String, String)] =
+//      viewModel.transitionProfitRow.toSeq.map { row =>
+//        (
+//          messages(
+//            "taxCal_breakdown.table.transitional_profit",
+//            row.incomeTaxCharged.toCurrencyString
+//          ),
+//          row.totalTaxableProfit.toCurrencyString
+//        )
+//      }
     
-    fopService.render(pdfTemplate("1234567890",listOfNames, XSLScalaBridge(messages).getLang()).body)
+    
+    fopService.render(pdfTemplate(viewModel,"1234567890",listOfNames, XSLScalaBridge(messages).getLang()).body)
   }
   
-  def saveTaxCalculationAsPdf: Action[AnyContent] =
-    authActions.asMTDIndividual().async { implicit userRequestNew =>
-      val filename = "Your tax calculation letter"
+  def saveTaxCalculationAsPdf(taxYear: Int) : Action[AnyContent] = authActions.asMTDIndividual().async {
+    implicit user =>
+      handlePDFRequest(
+        itcvErrorHandler = itvcErrorHandler,
+        taxYear = taxYear
+      )
 //        messagesApi.preferred(userRequestNew.request).messages("label.your_tax_calculation_letter")
 
 //      auditNinoLetter("DownloadNinoLetter", userRequestNew.individualDetails, hc)
-      createPDF(userRequestNew).flatMap(pdf =>
-        Future.successful(
-          Ok(pdf)
-            .as(MimeConstants.MIME_PDF)
-            .withHeaders(
-              CONTENT_DISPOSITION -> s"attachment; filename=${filename.replaceAll(" ", "-")}.pdf"
-            )
-        )
-      )
+
     }
   
   
