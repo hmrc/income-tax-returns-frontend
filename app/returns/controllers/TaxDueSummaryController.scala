@@ -179,7 +179,7 @@ class TaxDueSummaryController @Inject()(val authActions: AuthActions,
 
 //    val date: String = LocalDate.now.format(DateTimeFormatter.ofPattern("MM/YY"))
 
-    val listOfNames: Seq[(String,String)] = Seq(("John Smith", "35"), ("Jane Doe", "40"), ("Bob Johnson", "50"))
+//    val listOfNames: Seq[(String,String)] = Seq(("John Smith", "35"), ("Jane Doe", "40"), ("Bob Johnson", "50"))
 //    val listOfNames: Seq[(String,String)] = {
 //      viewModel.transitionProfitRow.map {
 //        case TransitionProfitRow(tax, profit) =>
@@ -187,18 +187,19 @@ class TaxDueSummaryController @Inject()(val authActions: AuthActions,
 //      }.toSeq
 //      
 //    }
-//    import shared.implicits.ImplicitCurrencyFormatter.CurrencyFormatter
-//    val listOfNames: Seq[(String, String)] =
-//      viewModel.transitionProfitRow.toSeq.map { row =>
-//        (
-//          messages(
-//            "taxCal_breakdown.table.transitional_profit",
-//            row.incomeTaxCharged.toCurrencyString
-//          ),
-//          row.totalTaxableProfit.toCurrencyString
-//        )
-//      }
+    import shared.implicits.ImplicitCurrencyFormatter.CurrencyFormatter
     
+    
+    val listOfNames: Seq[(String, String)] =
+      viewModel.transitionProfitRow.toSeq.map { row =>
+        (
+          messages(
+            "taxCal_breakdown.table.transitional_profit",
+            row.incomeTaxCharged.toCurrencyString
+          ),
+          row.totalTaxableProfit.toCurrencyString
+        )
+      }
     
     fopService.render(pdfTemplate(viewModel,"1234567890",listOfNames, XSLScalaBridge(messages).getLang()).body)
   }
