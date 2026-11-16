@@ -40,6 +40,7 @@ import returns.views.html.TaxCalcBreakdownView
 import returns.views.xml.TaxSummaryPdf
 import shared.connectors.ObligationsConnector
 import returns.utils.XSLScalaBridge
+import returns.models.liabilitycalculation.viewmodels.PDFCalculationViewModel
 
 //import java.time.LocalDate
 //import java.time.format.DateTimeFormatter
@@ -190,7 +191,8 @@ class TaxDueSummaryController @Inject()(val authActions: AuthActions,
     import shared.implicits.ImplicitCurrencyFormatter.CurrencyFormatter
     
     
-    val listOfNames: Seq[(String, String)] =
+    val incomeReceived: Seq[(String, String)] = {
+      Seq((" ", "Total")) ++ 
       viewModel.transitionProfitRow.toSeq.map { row =>
         (
           messages(
@@ -199,9 +201,19 @@ class TaxDueSummaryController @Inject()(val authActions: AuthActions,
           ),
           row.totalTaxableProfit.toCurrencyString
         )
-      }
+      } ++
+        Seq(("Total Income Received", "£3,000.00"))
+        
+    }
+    val pageData = PDFCalculationViewModel(
+      utr = user.saUtr.getOrElse(""),
+      nameLine = messages("label.your_tax_calculation_letter.nameLine", "Dex Evans", "2023", "2024"),
+      returnStatus = "complete",
+      incomeReceivedHeading = messages("label.your_tax_calculation_letter.IncomeReceived.h2"),
+      incomeReceived = incomeReceived
+    )
     
-    fopService.render(pdfTemplate(viewModel,"1234567890",listOfNames, XSLScalaBridge(messages).getLang()).body)
+    fopService.render(pdfTemplate(viewModel,pageData,incomeReceived, XSLScalaBridge(messages).getLang()).body)
   }
   
   def saveTaxCalculationAsPdf(taxYear: Int) : Action[AnyContent] = authActions.asMTDIndividual().async {

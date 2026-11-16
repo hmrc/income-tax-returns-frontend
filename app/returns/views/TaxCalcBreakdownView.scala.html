@@ -684,10 +684,14 @@
         ))
     ))
 
-<a class="govuk-link govuk-link--no-visited-state"
-   href="/manage-self-assessment/calculations/@{taxYear}/print-letter/save-letter-as-pdf"
-   data-journey-click="save - click:Your National Insurance letter:@{messages("label.save_as_a_PDF")}">
-Save as a PDF
-</a>
-<br><br>
+
+<form action="/manage-self-assessment/calculations/@{taxYear}/print-letter/save-letter-as-pdf" method="GET">
+    <button
+            class="govuk-button"
+            data-module="govuk-button"
+            data-journey-click="save - click:Your National Insurance letter:@{messages("label.save_as_a_PDF")}"
+    type="submit">
+    Save as a PDF
+    </button>
+</form>
 }
