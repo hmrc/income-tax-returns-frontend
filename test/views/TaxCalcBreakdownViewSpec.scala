@@ -436,6 +436,33 @@ abstract class TaxCalcBreakdownViewBehaviour extends ViewSpec {
     }
   }
 
+  "The taxCalc breakdown view with Wales tax regime" when {
+
+    "provided with a calculation that has a Pay, pensions and profit table for the 2017 tax year" should {
+
+      val walesBands = Seq(
+        TaxBands("BRT", 20.0, 12500, 12500, 20000, 4000.00)
+      )
+      val taxDueSummaryViewModel = TaxDueSummaryViewModel(
+        taxRegime = "Wales",
+        payPensionsProfitBands = Some(walesBands)
+      )
+      lazy val view = taxCalcBreakdown(taxDueSummaryViewModel, taxYear2017, backUrl)
+
+      "have a Pay, pensions and profit table with the Wales rate heading" which {
+        shouldHaveACorrectTableContent(view)(
+          tableNumber = 1,
+          expectedCaption = sectionHeadingPPP,
+          expectedTableRows = Table(
+            ("row index", "column 1", "column 2"),
+            (0, messages("taxCal_breakdown.table.head.rates.wales"), amountTableHeader),
+            (1, messages("taxCal_breakdown.table.BRT", "£20,000.00", "20.0"), "£4,000.00")
+          )
+        )
+      }
+    }
+  }
+
   "The taxCalc breakdown view with UK tax regime" when {
 
     "provided with a calculation that has a Pay, pensions and profit table for the 2017 tax year" should {

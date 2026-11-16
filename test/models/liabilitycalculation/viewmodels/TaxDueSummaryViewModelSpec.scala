@@ -35,6 +35,20 @@ class TaxDueSummaryViewModelSpec extends AnyWordSpec with Matchers with OptionVa
   given CanEqual[TaxDueSummaryViewModel, TaxDueSummaryViewModel] = CanEqual.derived
 
   "TaxDueSummaryViewModel model" when {
+    "getRateHeaderKey" should {
+      "return the Wales rate heading key for the Welsh tax regime" in {
+        TaxDueSummaryViewModel(taxRegime = "Wales").getRateHeaderKey shouldBe ".wales"
+      }
+
+      "return the Scotland rate heading key for the Scottish tax regime" in {
+        TaxDueSummaryViewModel(taxRegime = "Scotland").getRateHeaderKey shouldBe ".scotland"
+      }
+
+      "return the UK rate heading key for other tax regimes" in {
+        TaxDueSummaryViewModel(taxRegime = "UK").getRateHeaderKey shouldBe ".uk"
+      }
+    }
+
     "there is no calculation in response" should {
       "convert to empty model" in {
         val model: TaxDueSummaryViewModel = TaxDueSummaryViewModel(liabilityCalculationModelSuccessfulWithNoCalc, testObligationsModel)
