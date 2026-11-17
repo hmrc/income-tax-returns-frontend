@@ -552,6 +552,7 @@ tax-year-summary.payments.lateSubmissionPenalty.text           = Cosb am gyflwyn
 tax-year-summary.payments.itsaReturnAmendment.text             = Taliad mantoli: swm ychwanegol oherwydd Ffurflen Dreth ddiwygiedig
 tax-year-summary.payments.cancelledPayeSelfAssessment.text     = Hunanasesiad TWE wedi’i ganslo (trwy eich cod treth TWE)
 tax-year-summary.payments.hmrcAdjustment.text                  = Addasiad CThEF
+tax-year-summary.payments.overRepayment.text                   = Ad-daliad i’w dalu yn ôl yn dilyn newid i’ch Ffurflen Dreth
 tax-year-summary.payments.overdue                              = Yn hwyr
 tax-year-summary.payments.no-payments                          = Dim taliadau’n ddyledus ar hyn o bryd.
 tax-year-summary.payments.paymentUnderReview                   = Taliad dan adolygiad

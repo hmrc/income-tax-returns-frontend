@@ -556,6 +556,7 @@ tax-year-summary.payments.lateSubmissionPenalty.text               = Late submis
 tax-year-summary.payments.itsaReturnAmendment.text                 = Balancing payment: extra amount due to amended return
 tax-year-summary.payments.cancelledPayeSelfAssessment.text         = Cancelled PAYE Self Assessment (through your PAYE tax code)
 tax-year-summary.payments.hmrcAdjustment.text                      = HMRC adjustment
+tax-year-summary.payments.overRepayment.text                       = Refund to pay back after a change to your tax return
 tax-year-summary.payments.overdue                                  = Overdue
 tax-year-summary.payments.no-payments                              = No payments currently due.
 tax-year-summary.payments.paymentUnderReview                       = Payment under review

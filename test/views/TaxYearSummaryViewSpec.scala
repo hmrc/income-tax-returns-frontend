@@ -198,6 +198,10 @@ class TaxYearSummaryViewSpec extends ViewSpec with FeatureSwitching with ChargeC
   val testBalancingPaymentChargeWithZeroValue: List[TaxYearSummaryChargeItem] = List(
     chargeItemModel(transactionType = BalancingCharge, originalAmount = 0.0, accruingInterestAmount = None)).map(TaxYearSummaryChargeItem.fromChargeItem)
 
+  val testChargesWithOverRepaymentCharge: List[TaxYearSummaryChargeItem] = List(
+    TaxYearSummaryChargeItem.fromChargeItem(chargeItemModel(transactionType = ITSAOverRepayment, originalAmount = 100.0, accruingInterestAmount = None))
+  )
+
   def testPaymentsOnAccountCodedOut(codedOutStatus: CodedOutStatusType): List[TaxYearSummaryChargeItem] = List(
     chargeItemModel(transactionType = PoaOneDebit, codedOutStatus = Some(codedOutStatus), accruingInterestAmount = None),
     chargeItemModel(transactionType = PoaTwoDebit, codedOutStatus = Some(codedOutStatus), accruingInterestAmount = None)
@@ -1104,6 +1108,12 @@ class TaxYearSummaryViewSpec extends ViewSpec with FeatureSwitching with ChargeC
         layoutContent.selectHead("#payments-table tr:nth-child(3) td:nth-child(1)").text shouldBe "Extra amount to pay due to HMRC correction"
         layoutContent.selectHead("#payments-table tr:nth-child(3) td:nth-child(2)").text shouldBe "No data"
         layoutContent.selectHead("#payments-table tr:nth-child(3) td:nth-child(3)").text shouldBe "£0.00"
+      }
+
+      "display the the over repayment charge in the payments tab" in new Setup(estimateView(chargeItems = testChargesWithOverRepaymentCharge)) {
+        layoutContent.selectHead("#payments-table tr:nth-child(1) td:nth-child(1)").text shouldBe "Overdue Refund to pay back after a change to your tax return Payment under review"
+        layoutContent.selectHead("#payments-table tr:nth-child(1) td:nth-child(2)").text shouldBe "15 May 2019"
+        layoutContent.selectHead("#payments-table tr:nth-child(1) td:nth-child(3)").text shouldBe "£100.00"
       }
 
       "display no payments due when there are no charges in the payments tab" in new Setup(estimateView(emptyChargeList)) {

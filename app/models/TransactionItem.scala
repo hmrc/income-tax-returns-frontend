@@ -60,6 +60,7 @@ trait TransactionItem extends Logging {
       case (PoaOneDebit, _)                     => "paymentOnAccount1.text"
       case (PoaTwoDebit, _)                     => "paymentOnAccount2.text"
       case (MfaDebitCharge, _)                  => "hmrcAdjustment.text"
+      case (ITSAOverRepayment, _)               => "overRepayment.text"
       case (BalancingCharge, Some(Nics2))       => "class2Nic.text"
       case (BalancingCharge, Some(Accepted))    => "codingOut.text"
       case (BalancingCharge, Some(Cancelled))   => "cancelledPayeSelfAssessment.text"
