@@ -128,7 +128,7 @@
                           padding-start="14px">
 
                     <fo:external-graphic
-                            src="url('file:pdf/logo/govuk.png')"
+                            src="url('file:pdf/logo/Lock-up_Black.png')"
                             content-height="scale-to-fit"
                             content-width="6cm"
                             role="Artifact"
@@ -138,7 +138,7 @@
                               font-size="22pt"
                               font-weight="bold"
                               line-height="24pt"
-                              space-before="-56px"
+                              space-before="-24px"
                               padding-start="14px"
                               linefeed-treatment="preserve">
                         @Messages("label.self-assessment.heading")
