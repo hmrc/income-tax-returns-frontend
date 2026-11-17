@@ -3792,3 +3792,4 @@ label.your_tax_calculation_letter.warning = You need to complete and submit your
 label.your_tax_calculation_letter.IncomeReceived.h2 = Income received (before tax taken off)
 label.hmrc_date = HMRC {0}
 label.unique.taxpayer.reference                                  = Unique Taxpayer Reference (UTR): {0}
+label.self-assessment.heading                              = Self Assessment

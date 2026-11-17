@@ -118,33 +118,40 @@
         <fo:flow flow-name="xsl-region-body">
 
             <!-- logo and heading -->
-            <fo:block role="Div" space-after="-3px">
-                <fo:inline-container role="Div" inline-progression-dimension="23%">
-                    <fo:block role="Div"
-                              border-left-style="solid"
-                              border-width="1.5px"
-                              border-color="#28a197"
-                              padding-start="4px">
-                        <fo:external-graphic src="url('file:pdf/logo/hmrc.pdf')"
-                                                 content-height="scale-to-fit"
-                                                 content-width="0.8cm"
-                                                 role="Artifact"
-                                                 fox:alt-text="@Messages("label.alt.hmrc_logo")"
-                            />
-                        <fo:block role="P"
-                                  line-height="14pt"
-                                  font-size="14pt"
-                                  padding-before="-14px"
-                                  linefeed-treatment="preserve">
-                            @Messages("label.hm_revenue_customs_ni_print.revenue.pdf")
-                            @Messages("label.hm_revenue_customs_ni_print.customs.pdf")
-                        </fo:block>
+            <fo:block role="Div"
+                      border-bottom-style="solid"
+                      border-bottom-width="4px"
+                      border-bottom-color="#3F66B1"
+                      padding-after="6px">
+
+                <fo:block role="Div"
+                          padding-start="14px">
+
+                    <fo:external-graphic
+                            src="url('file:pdf/logo/govuk.png')"
+                            content-height="scale-to-fit"
+                            content-width="6cm"
+                            role="Artifact"
+                            fox:alt-text="@Messages("label.alt.hmrc_logo")"/>
+
+                    <fo:block role="P"
+                              font-size="22pt"
+                              font-weight="bold"
+                              line-height="24pt"
+                              space-before="-56px"
+                              padding-start="14px"
+                              linefeed-treatment="preserve">
+                        @Messages("label.self-assessment.heading")
                     </fo:block>
-                </fo:inline-container>
+
+                </fo:block>
+
             </fo:block>
+
             <!-- end logo and heading -->
 <!--main text  -->
-            <fo:block padding-after="6px"
+            <fo:block padding-before="12px"
+                      padding-after="6px"
                       text-align="right">
                 @Messages("label.unique.taxpayer.reference", pageData.utr)
             </fo:block>
@@ -222,7 +229,7 @@
                 <fo:table-column column-width="50%"/>
 
                 <fo:table-body>
-                    @for((firstName, lastName) <- listOfNames) {
+                    @for(((firstName, lastName), index) <- listOfNames.zipWithIndex) {
                     <fo:table-row
                             border-bottom="0.5pt solid #BFBFBF">
 
@@ -230,7 +237,7 @@
                                 padding-right="10pt"
                                 padding-top="6pt"
                                 padding-bottom="6pt">
-                            <fo:block>
+                            <fo:block font-weight="@if(index == 0 || index == listOfNames.size - 1) {bold} else {normal}">
                                 @firstName
                             </fo:block>
                         </fo:table-cell>
