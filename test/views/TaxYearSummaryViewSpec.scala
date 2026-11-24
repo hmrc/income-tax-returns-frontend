@@ -181,6 +181,22 @@ class TaxYearSummaryViewSpec extends ViewSpec with FeatureSwitching with ChargeC
 
   val testChargesWithoutLpiList: List[TaxYearSummaryChargeItem] = testChargesList.map(_.copy(isAccruingInterest = false))
 
+  val testChargesWithOverRepaymentLpiCharge: List[TaxYearSummaryChargeItem] = List(
+    TaxYearSummaryChargeItem.fromChargeItem(
+      chargeItemModel(
+        transactionType = ITSAOverRepayment,
+        dueDate = Some(LocalDate.of(2019, 5, 15)),
+        originalAmount = 100.0,
+        outstandingAmount = 0.0,
+        interestOutstandingAmount = Some(50.0),
+        latePaymentInterestAmount = Some(50.0),
+        interestEndDate = Some(LocalDate.of(2019, 5, 15))
+      ),
+      dueDate = Some(LocalDate.of(2019, 5, 15)),
+      isLatePaymentInterest = true
+    )
+  )
+
   val class2NicsChargesList: List[TaxYearSummaryChargeItem] = List(
     chargeItemModel(transactionType = PoaOneDebit, dueDate = Some(LocalDate.of(2021, 7, 31)), accruingInterestAmount = None),
     chargeItemModel(transactionType = BalancingCharge, codedOutStatus = Some(Nics2), dueDate = Some(LocalDate.of(2021, 7, 30)), accruingInterestAmount = None)
@@ -1114,6 +1130,12 @@ class TaxYearSummaryViewSpec extends ViewSpec with FeatureSwitching with ChargeC
         layoutContent.selectHead("#payments-table tr:nth-child(1) td:nth-child(1)").text shouldBe "Overdue Refund to pay back after a change to your tax return Payment under review"
         layoutContent.selectHead("#payments-table tr:nth-child(1) td:nth-child(2)").text shouldBe "15 May 2019"
         layoutContent.selectHead("#payments-table tr:nth-child(1) td:nth-child(3)").text shouldBe "£100.00"
+      }
+
+      "display the late payment interest over repayment charge in the payments tab" in new Setup(estimateView(chargeItems = testChargesWithOverRepaymentLpiCharge)) {
+        layoutContent.selectHead("#payments-table tr:nth-child(1) td:nth-child(1) a").text shouldBe "Late payment interest on a refund you need to pay back"
+        layoutContent.selectHead("#payments-table tr:nth-child(1) td:nth-child(2)").text shouldBe "15 May 2019"
+        layoutContent.selectHead("#payments-table tr:nth-child(1) td:nth-child(3)").text shouldBe "£50.00"
       }
 
       "display no payments due when there are no charges in the payments tab" in new Setup(estimateView(emptyChargeList)) {

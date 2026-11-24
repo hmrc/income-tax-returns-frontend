@@ -564,6 +564,7 @@ tax-year-summary.payments.lpi.firstLatePaymentPenalty.text     = Llog am dalu’
 tax-year-summary.payments.lpi.secondLatePaymentPenalty.text    = Llog am dalu’n hwyr ar yr ail gosb am dalu’n hwyr
 tax-year-summary.payments.lpi.lateSubmissionPenalty.text       = Llog am dalu’n hwyr ar gosb am gyflwyno’n hwyr
 tax-year-summary.payments.lpi.itsaReturnAmendment.text         = Llog am dalu’r daliad mantoli yn hwyr: swm ychwanegol oherwydd Ffurflen Dreth ddiwygiedig
+tax-year-summary.payments.lpi.overRepayment.text               = Llog am dalu’n hwyr ar ad-daliad y mae angen i chi ei dalu yn ôl
 tax-year-summary.section                                       = Adran
 tax-year-summary.amount                                        = Swm
 tax-year-summary.payments.class2Nic.text                       = Yswiriant Gwladol Dosbarth 2
