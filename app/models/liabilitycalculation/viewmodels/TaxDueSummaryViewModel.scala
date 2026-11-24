@@ -108,9 +108,14 @@ case class TaxDueSummaryViewModel(
   def totalPensionContributionReliefsActual: BigDecimal =
     pensionContributionReliefs.map(_.totalPensionContributionReliefs).getOrElse(throw MissingFieldException("Total Pension Contribution Reliefs"))
 
+  def basicRateLimitMessagesWithoutBand: Seq[String] =
+    if getModifiedBaseTaxBand.isDefined then Seq.empty
+    else messages.map(_.allMessages.map(_.id).filter(TaxDueSummaryViewModel.basicRateLimitMessageIds.contains)).getOrElse(Seq.empty)
 }
 
 object TaxDueSummaryViewModel {
+
+  val basicRateLimitMessageIds: Seq[String] = Seq("C22201", "C22208", "C22209")
 
   def apply(calcResponse: LiabilityCalculationResponse, obligations: ObligationsModel): TaxDueSummaryViewModel = {
     calcResponse.calculation match {

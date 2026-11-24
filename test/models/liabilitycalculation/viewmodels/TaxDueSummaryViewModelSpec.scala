@@ -293,6 +293,44 @@ class TaxDueSummaryViewModelSpec extends AnyWordSpec with Matchers with OptionVa
       }
     }
 
+    "basicRateLimitMessagesWithoutBand" should {
+      val brtBand = TaxBands("BRT", BigDecimal(20), 37700, 38225, 0, BigDecimal(0))
+      val ssrBand = TaxBands("SSR", BigDecimal(0), 5000, 5000, 99, BigDecimal(0))
+      val allMessages = Some(Messages(info = Some(Seq(
+        Message("C22201", "gift aid"),
+        Message("C22202", "gift aid tax"),
+        Message("C22208", "pension"),
+        Message("C22209", "pension and gift aid")
+      ))))
+
+      "return nothing when the basic rate band is present" in {
+        val model = TaxDueSummaryViewModel(savingsAndGainsBands = Some(Seq(ssrBand, brtBand)), messages = allMessages)
+
+        model.basicRateLimitMessagesWithoutBand shouldBe Seq.empty
+      }
+
+      "return the basic rate limit messages when the basic rate band is missing" in {
+        val model = TaxDueSummaryViewModel(savingsAndGainsBands = Some(Seq(ssrBand)), messages = allMessages)
+
+        model.basicRateLimitMessagesWithoutBand shouldBe Seq("C22201", "C22208", "C22209")
+      }
+
+      "return only the basic rate limit messages that were sent" in {
+        val model = TaxDueSummaryViewModel(savingsAndGainsBands = Some(Seq(ssrBand)), messages = Some(Messages(info = Some(Seq(
+          Message("C22201", "gift aid"),
+          Message("C22202", "gift aid tax")
+        )))))
+
+        model.basicRateLimitMessagesWithoutBand shouldBe Seq("C22201")
+      }
+
+      "return nothing when there are no messages" in {
+        val model = TaxDueSummaryViewModel(savingsAndGainsBands = Some(Seq(ssrBand)))
+
+        model.basicRateLimitMessagesWithoutBand shouldBe Seq.empty
+      }
+    }
+
     "getSATaxAmount" should{
     "return totalTaxAndNicsDue with Some value when taxRefundedOrSetOff is present regardless of totalIncomeTaxAndNicsAndCgt" in {
       val model = TaxDueSummaryViewModel(taxRefundedOrSetOff = Some(BigDecimal(150)),

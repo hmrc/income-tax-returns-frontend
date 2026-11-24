@@ -1036,19 +1036,37 @@ abstract class TaxCalcBreakdownViewBehaviour extends ViewSpec {
       }
 
       "getModifiedBaseTaxBand returns None" should {
-        "produce MissingFieldException" in {
+        "not display the message and still render the page" in {
 
-          val expectedException = intercept[MissingFieldException] {
-            taxCalcBreakdown(TaxDueSummaryViewModel(
-              grossGiftAidPayments = Some(5000.98),
-              lumpSumsBands = Some(Seq()),
-              messages = Some(Messages(info = Some(Seq(
-                Message("C22201", "message")
-              ))))
-            ), taxYear2017, backUrl)
-          }
+          lazy val view = taxCalcBreakdown(TaxDueSummaryViewModel(
+            grossGiftAidPayments = Some(5000.98),
+            lumpSumsBands = Some(Seq()),
+            messages = Some(Messages(info = Some(Seq(
+              Message("C22201", "message")
+            ))))
+          ), taxYear2017, backUrl)
 
-          expectedException.getMessage shouldBe "Missing Mandatory Expected Field: Modified Base Tax Band"
+          val document: Document = Jsoup.parse(view.body)
+
+          document.select(messageContentSelector).size shouldBe 1
+          document.select(messageContentSelector).get(0).text shouldBe messages("taxCal_breakdown.message.static1")
+        }
+
+        "still display the other messages" in {
+
+          lazy val view = taxCalcBreakdown(TaxDueSummaryViewModel(
+            grossGiftAidPayments = Some(5000.98),
+            lumpSumsBands = Some(Seq()),
+            messages = Some(Messages(info = Some(Seq(
+              Message("C22201", "message"),
+              Message("C22202", "message2")
+            ))))
+          ), taxYear2017, backUrl)
+
+          val document: Document = Jsoup.parse(view.body)
+
+          document.select(messageContentSelector).size shouldBe 2
+          document.select(messageContentSelector).get(1).text shouldBe messages("taxCal_breakdown.message.C22202")
         }
       }
     }
@@ -1143,27 +1161,28 @@ abstract class TaxCalcBreakdownViewBehaviour extends ViewSpec {
       }
 
       "getModifiedBaseTaxBand is missing" should {
-        "produce MissingFieldException when " in {
+        "not display the message and still render the page" in {
 
-          val expectedException = intercept[MissingFieldException] {
-            taxCalcBreakdown(TaxDueSummaryViewModel(
-              pensionContributionReliefs = Some(
-                PensionContributionReliefs(
-                  BigDecimal(5000.99),
-                  PensionContributionDetail(
-                    Some(BigDecimal(0.00)),
-                    Some(BigDecimal(0.00))
-                  )
+          lazy val view = taxCalcBreakdown(TaxDueSummaryViewModel(
+            pensionContributionReliefs = Some(
+              PensionContributionReliefs(
+                BigDecimal(5000.99),
+                PensionContributionDetail(
+                  Some(BigDecimal(0.00)),
+                  Some(BigDecimal(0.00))
                 )
-              ),
-              lumpSumsBands = Some(Seq()),
-              messages = Some(Messages(info = Some(Seq(
-                Message("C22208", "message")
-              ))))
-            ), taxYear2017, backUrl)
-          }
+              )
+            ),
+            lumpSumsBands = Some(Seq()),
+            messages = Some(Messages(info = Some(Seq(
+              Message("C22208", "message")
+            ))))
+          ), taxYear2017, backUrl)
 
-          expectedException.getMessage shouldBe "Missing Mandatory Expected Field: Modified Base Tax Band"
+          val document: Document = Jsoup.parse(view.body)
+
+          document.select(messageContentSelector).size shouldBe 1
+          document.select(messageContentSelector).get(0).text shouldBe messages("taxCal_breakdown.message.static1")
         }
       }
     }
@@ -1188,13 +1207,14 @@ abstract class TaxCalcBreakdownViewBehaviour extends ViewSpec {
 
     "A C22209 message" when {
       "getModifiedBaseTaxBand is missing" should {
-        "produce MissingFieldException" in {
+        "not display the message and still render the page" in {
 
-          val expectedException = intercept[MissingFieldException] {
-            taxCalcBreakdown(taxDueSummaryViewModelValidForC22209, taxYear2017, backUrl)
-          }
+          lazy val view = taxCalcBreakdown(taxDueSummaryViewModelValidForC22209, taxYear2017, backUrl)
 
-          expectedException.getMessage shouldBe "Missing Mandatory Expected Field: Modified Base Tax Band"
+          val document: Document = Jsoup.parse(view.body)
+
+          document.select(messageContentSelector).size shouldBe 1
+          document.select(messageContentSelector).get(0).text shouldBe messages("taxCal_breakdown.message.static1")
         }
       }
     }
@@ -1300,19 +1320,20 @@ abstract class TaxCalcBreakdownViewBehaviour extends ViewSpec {
       }
 
       "getModifiedBaseTaxBand returns None" should {
-        "produce MissingFieldException" in {
+        "not display the message and still render the page" in {
 
-          val expectedException = intercept[MissingFieldException] {
-            taxCalcBreakdown(TaxDueSummaryViewModel(
-              grossGiftAidPayments = Some(5000.98),
-              lumpSumsBands = Some(Seq()),
-              messages = Some(Messages(info = Some(Seq(
-                Message("C22201", "message")
-              ))))
-            ), taxYear2017, backUrl, isAgent = true)
-          }
+          lazy val view = taxCalcBreakdown(TaxDueSummaryViewModel(
+            grossGiftAidPayments = Some(5000.98),
+            lumpSumsBands = Some(Seq()),
+            messages = Some(Messages(info = Some(Seq(
+              Message("C22201", "message")
+            ))))
+          ), taxYear2017, backUrl, isAgent = true)
 
-          expectedException.getMessage shouldBe "Missing Mandatory Expected Field: Modified Base Tax Band"
+          val document: Document = Jsoup.parse(view.body)
+
+          document.select(messageContentSelector).size shouldBe 1
+          document.select(messageContentSelector).get(0).text shouldBe messages("taxCal_breakdown.message.agent.static1")
         }
       }
     }
@@ -1407,13 +1428,28 @@ abstract class TaxCalcBreakdownViewBehaviour extends ViewSpec {
       }
 
       "getModifiedBaseTaxBand is missing" should {
-        "produce MissingFieldException when " in {
+        "not display the message and still render the page" in {
 
-          val expectedException = intercept[MissingFieldException] {
-            taxCalcBreakdown(taxDueSummaryViewModelValidForC22209, taxYear2017, backUrl, isAgent = true)
-          }
+          lazy val view = taxCalcBreakdown(TaxDueSummaryViewModel(
+            pensionContributionReliefs = Some(
+              PensionContributionReliefs(
+                BigDecimal(5000.99),
+                PensionContributionDetail(
+                  Some(BigDecimal(0.00)),
+                  Some(BigDecimal(0.00))
+                )
+              )
+            ),
+            lumpSumsBands = Some(Seq()),
+            messages = Some(Messages(info = Some(Seq(
+              Message("C22208", "message")
+            ))))
+          ), taxYear2017, backUrl, isAgent = true)
 
-          expectedException.getMessage shouldBe "Missing Mandatory Expected Field: Modified Base Tax Band"
+          val document: Document = Jsoup.parse(view.body)
+
+          document.select(messageContentSelector).size shouldBe 1
+          document.select(messageContentSelector).get(0).text shouldBe messages("taxCal_breakdown.message.agent.static1")
         }
       }
     }
@@ -1438,13 +1474,14 @@ abstract class TaxCalcBreakdownViewBehaviour extends ViewSpec {
 
     "A C22209 message" when {
       "getModifiedBaseTaxBand is missing" should {
-        "produce MissingFieldException" in {
+        "not display the message and still render the page" in {
 
-          val expectedException = intercept[MissingFieldException] {
-            taxCalcBreakdown(taxDueSummaryViewModelValidForC22209, taxYear2017, backUrl, isAgent = true)
-          }
+          lazy val view = taxCalcBreakdown(taxDueSummaryViewModelValidForC22209, taxYear2017, backUrl, isAgent = true)
 
-          expectedException.getMessage shouldBe "Missing Mandatory Expected Field: Modified Base Tax Band"
+          val document: Document = Jsoup.parse(view.body)
+
+          document.select(messageContentSelector).size shouldBe 1
+          document.select(messageContentSelector).get(0).text shouldBe messages("taxCal_breakdown.message.agent.static1")
         }
       }
     }
