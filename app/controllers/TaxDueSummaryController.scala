@@ -82,6 +82,11 @@ class TaxDueSummaryController @Inject()(val authActions: AuthActions,
 
         val viewModel = TaxDueSummaryViewModel(liabilityCalc, obligations)
 
+        val hiddenMessages = viewModel.basicRateLimitMessagesWithoutBand
+
+        if hiddenMessages.nonEmpty then
+          logger.warn(s"[handleRequest] BRT tax band missing from calculation response for taxYear: $taxYear. Calc messages not displayed: ${hiddenMessages.mkString(", ")}")
+
         auditingService.extendedAudit(TaxDueResponseAuditModel(user, viewModel, taxYear))
 
         val fallbackBackUrl = getFallbackUrl(user.session.get(calcPagesBackPage), isAgent, liabilityCalc.metadata.isCalculationCrystallised, taxYear, origin)

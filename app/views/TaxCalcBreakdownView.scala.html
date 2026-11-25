@@ -520,7 +520,7 @@
         ))
     }
 
-    @if(viewModel.messages.exists(_.allMessages.exists(_.id=="C22201"))){
+    @if(viewModel.messages.exists(_.allMessages.exists(_.id=="C22201")) && viewModel.hasModifiedBaseTaxBand){
         @govukInsetText(InsetText(content = HtmlContent(
             messages(if(isAgent) s"taxCal_breakdown.message.agent.C22201" else s"taxCal_breakdown.message.C22201",viewModel.grossGiftAidPaymentsActual.toCurrencyString,
                 BigDecimal(viewModel.getModifiedBaseTaxBandActual.apportionedBandLimit).toCurrencyString)
@@ -540,14 +540,14 @@
         )))
     }
 
-    @if(viewModel.messages.exists(_.allMessages.exists(_.id=="C22208"))){
+    @if(viewModel.messages.exists(_.allMessages.exists(_.id=="C22208")) && viewModel.hasModifiedBaseTaxBand){
         @govukInsetText(InsetText(content = HtmlContent(
             messages(if(isAgent) s"taxCal_breakdown.message.agent.C22208" else s"taxCal_breakdown.message.C22208",viewModel.totalPensionContributionReliefsActual.toCurrencyString,
                 BigDecimal(viewModel.getModifiedBaseTaxBandActual.apportionedBandLimit).toCurrencyString)
         )))
     }
 
-    @if(viewModel.messages.exists(_.allMessages.exists(_.id=="C22209"))){
+    @if(viewModel.messages.exists(_.allMessages.exists(_.id=="C22209")) && viewModel.hasModifiedBaseTaxBand){
         @govukInsetText(InsetText(content = HtmlContent(
             messages(if(isAgent) s"taxCal_breakdown.message.agent.C22209" else s"taxCal_breakdown.message.C22209", 
                 BigDecimal(viewModel.getModifiedBaseTaxBandActual.apportionedBandLimit).toCurrencyString)
