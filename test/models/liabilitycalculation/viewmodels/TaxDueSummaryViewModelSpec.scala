@@ -293,6 +293,20 @@ class TaxDueSummaryViewModelSpec extends AnyWordSpec with Matchers with OptionVa
       }
     }
 
+    "hasModifiedBaseTaxBand" should {
+      "return true when the BRT tax band is present" in {
+        val model = TaxDueSummaryViewModel(savingsAndGainsBands = Some(Seq(TaxBands("BRT", BigDecimal(20), 37700, 38225, 0, BigDecimal(0)))))
+
+        model.hasModifiedBaseTaxBand shouldBe true
+      }
+
+      "return false when the BRT tax band is missing" in {
+        val model = TaxDueSummaryViewModel(savingsAndGainsBands = Some(Seq(TaxBands("SSR", BigDecimal(0), 5000, 5000, 99, BigDecimal(0)))))
+
+        model.hasModifiedBaseTaxBand shouldBe false
+      }
+    }
+
     "basicRateLimitMessagesWithoutBand" should {
       val brtBand = TaxBands("BRT", BigDecimal(20), 37700, 38225, 0, BigDecimal(0))
       val ssrBand = TaxBands("SSR", BigDecimal(0), 5000, 5000, 99, BigDecimal(0))
